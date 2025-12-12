@@ -1,0 +1,59 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: "light" ;
+}
+
+
+@plugin "daisyui/theme" {
+  
+  default: true;
+
+  /* Colors */
+  --color-primary: #7909DA;       /* Navbar, headings */
+  --color-secondary: #CDF2FF;     /* Highlights, secondary buttons */
+  --color-accent: #3B82F6;        /* CTA buttons */
+  --color-neutral: #F3F4F6;       /* Background */
+  --color-base-100: #FFFFFF;      /* Cards, tables */
+  --color-info: #3ABFF8;
+  --color-success: #10B981;
+  --color-warning: #FBBF24;
+  --color-error: #EF4444;
+
+  /* Text */
+  --color-base-content: #111827;
+  --color-secondary-content: #6B7280;
+
+  /* Typography */
+  --font-sans: 'Inter', 'Roboto', 'Poppins', sans-serif;
+  --text-h1: 3.5rem;
+  --text-h2: 2.5rem;
+  --text-h3: 2rem;
+  --text-base: 1rem;
+  --text-sm: 0.875rem;
+  --text-xs: 0.75rem;
+
+  /* Font Weights */
+  --font-bold: 700;
+  --font-semibold: 600;
+  --font-medium: 500;
+  --font-normal: 400;
+  --font-light: 300;
+
+ 
+  
+  --animation-btn: 0.8s;
+}
+
+
+
+
+
+body{
+  font-family: "Urbanist", sans-serif;
+  font-optical-sizing: auto;
+  
+  font-style: normal;
+}

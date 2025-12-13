@@ -1,24 +1,47 @@
 import React from "react";
-import { FaHome, FaShippingFast, FaTasks, FaUser } from "react-icons/fa";
-import { MdAssignment, MdDeliveryDining, MdPayment } from "react-icons/md";
+import { FaHome } from "react-icons/fa";
+import {
+  MdAddBusiness,
+  
+  MdGroup,
+  MdInventory,
+  MdListAlt,
+  MdOutlineVideogameAsset,
+  
+  MdRequestQuote,
+} from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router";
 import UseRole from "../Hooks/UseRole";
+import useUserRole from "../Hooks/useUserRole";
+import { AiOutlineTeam } from "react-icons/ai";
 
 const DashboardLayout = () => {
-  const { role, roleLoading } = UseRole();
-  console.log(role)
+  const {userData, roleLoading } = useUserRole();
+  console.log(userData);
+  console.log(userData?.role);
 
-  if (roleLoading || !role) {
-  return <p className="text-center py-8 font-bold">Loading...</p>;
-}
+  if (roleLoading) {
+    return <p className="text-center py-8 font-bold">Loading...</p>;
+  }
 
   return (
     <div>
-      <div className="drawer lg:drawer-open">
+
+      {/* drawer */}
+
+
+    
+
+
+
+
+
+
+      <div className="drawer  lg:drawer-open">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
           {/* Navbar */}
-          <nav className="navbar w-full bg-base-300">
+          <nav className="navbar  w-full bg-base-300">
             <label
               htmlFor="my-drawer-4"
               aria-label="open sidebar"
@@ -40,14 +63,14 @@ const DashboardLayout = () => {
                 <path d="M14 10l2 2l-2 2"></path>
               </svg>
             </label>
-            <div className="px-4">Navbar Title</div>
+            {/* <div className="px-4">Navbar Title</div> */}
           </nav>
 
           {/* Page content here */}
-          <Outlet></Outlet>
+          <Outlet c></Outlet>
         </div>
 
-        <div className="drawer-side is-drawer-close:overflow-visible">
+        <div className="drawer-side is-drawer-close:overflow-visible bg-secondary">
           <label
             htmlFor="my-drawer-4"
             aria-label="close sidebar"
@@ -55,7 +78,6 @@ const DashboardLayout = () => {
           ></label>
           <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
             <ul className="menu w-full grow">
-              
               {/* Home */}
               <Link to={"/"}>
                 <button
@@ -63,133 +85,133 @@ const DashboardLayout = () => {
                   data-tip="Homepage"
                 >
                   <FaHome size={25} />
-                  <span className="is-drawer-close:hidden">
-                    Homepage
-                  </span>
+                  <span className="is-drawer-close:hidden">Homepage</span>
                 </button>
               </Link>
 
-              {/* rider only page */}
+{/* Employee Menu */}
+{userData?.role === "employee" && (
+  <>
+    <li>
+      <NavLink
+        to="/dashboard/my-asset"
+        data-tip="My Asset"
+        className={({ isActive }) =>
+          isActive
+            ? "text-primary font-semibold underline is-drawer-close:tooltip is-drawer-close:tooltip-right"
+            : "text-gray-600"
+        }
+      >
+        <MdOutlineVideogameAsset size={25} />
+        <span className="is-drawer-close:hidden is-drawer-close:tooltip is-drawer-close:tooltip-right">My Asset</span>
+      </NavLink>
+    </li>
 
-               {role.role === "rider" && (
-                <li>
-                  <NavLink
-                    to="/dashboard/assign-delivery"
-                    data-tip="Accept Delivery"
-                    className={({ isActive }) =>
-                      `is-drawer-close:tooltip is-drawer-close:tooltip-right 
-                        ${isActive ? "text-primary font-semibold underline" : "text-gray-600"}`
-                    }
-                  >
-                    <FaTasks size={25} />
-                    <span className="is-drawer-close:hidden">
-                      Accept Delivery
-                    </span>
-                  </NavLink>
-                </li>
-              )}
+    <li>
+      <NavLink
+        to="/dashboard/my-team"
+        data-tip="My Team"
+        className={({ isActive }) =>
+          isActive
+            ? "text-primary font-semibold underline"
+            : "text-gray-600"
+        }
+      >
+        <AiOutlineTeam size={25} />
+        <span className="is-drawer-close:hidden">My Team</span>
+      </NavLink>
+    </li>
 
+    <li>
+      <NavLink
+        to="/dashboard/request-asset"
+        data-tip="Request Asset"
+        className={({ isActive }) =>
+          isActive
+            ? "text-primary font-semibold underline"
+            : "text-gray-600"
+        }
+      >
+        <MdRequestQuote size={25} />
+        <span className="is-drawer-close:hidden">Request Asset</span>
+      </NavLink>
+    </li>
+  </>
+)}
 
+{/* HR Menu */}
+{userData?.role === "hr" && (
+  <>
+    <li>
+      <NavLink
+        to="/dashboard/add-asset"
+        data-tip="Add Asset"
+        className={({ isActive }) =>
+          isActive
+            ? "text-primary font-semibold underline"
+            : "text-gray-600"
+        }
+      >
+        <MdAddBusiness size={25} />
+        <span className="is-drawer-close:hidden">Add Asset</span>
+      </NavLink>
+    </li>
 
+    <li>
+      <NavLink
+        to="/dashboard/asset-list"
+        data-tip="Asset List"
+        className={({ isActive }) =>
+          isActive
+            ? "text-primary font-semibold underline"
+            : "text-gray-600"
+        }
+      >
+        <MdInventory size={25} />
+        <span className="is-drawer-close:hidden">Asset List</span>
+      </NavLink>
+    </li>
 
-               
+    <li>
+      <NavLink
+        to="/dashboard/all-request"
+        data-tip="All Requests"
+        className={({ isActive }) =>
+          isActive
+            ? "text-primary font-semibold underline"
+            : "text-gray-600"
+        }
+      >
+        <MdListAlt size={25} />
+        <span className="is-drawer-close:hidden">All Requests</span>
+      </NavLink>
+    </li>
 
-                 
+    <li>
+      <NavLink
+        to="/dashboard/employee-list"
+        data-tip="Employee List"
+        className={({ isActive }) =>
+          isActive
+            ? "text-primary font-semibold underline"
+            : "text-gray-600"
+        }
+      >
+        <MdGroup size={25} />
+        <span className="is-drawer-close:hidden">Employee List</span>
+      </NavLink>
+    </li>
+  </>
+)}
 
-              {/* Admin Menu */}
-              {role.role === "admin" && (
-                <>
-                  <li>
-                    <NavLink
-                      to="/dashboard/users-management"
-                      data-tip=" Users management"
-                      className={({ isActive }) =>
-                        `is-drawer-close:tooltip is-drawer-close:tooltip-right 
-                        ${isActive ? "text-primary font-semibold underline" : "text-gray-600"}`
-                      }
-                    >
-                      <FaUser size={25} />
-                      <span className="is-drawer-close:hidden">
-                        Users management
-                      </span>
-                    </NavLink>
-                  </li>
-
-                  {/* Assign Rider */}
-
-                  <li>
-                    <NavLink
-                      to="/dashboard/assign-Riders"
-                       data-tip="Assign Rider"
-                      className={({ isActive }) =>
-                        `is-drawer-close:tooltip is-drawer-close:tooltip-right 
-                        ${isActive ? "text-primary font-semibold underline" : "text-gray-600"}`
-                      }
-                    >
-                      <MdAssignment  size={25} />
-                      <span className="is-drawer-close:hidden">
-                        Assign Rider
-                      </span>
-                    </NavLink>
-                  </li>
-
-                  <li>
-                    <NavLink
-                      to="/dashboard/approve-riders"
-                      data-tip="Approve Rider"
-                      className={({ isActive }) =>
-                        `is-drawer-close:tooltip is-drawer-close:tooltip-right 
-                        ${isActive ? "text-primary font-semibold underline" : "text-gray-600"}`
-                      }
-                    >
-                      <FaShippingFast size={25} />
-                      <span className="is-drawer-close:hidden">
-                        Approve Rider
-                      </span>
-                    </NavLink>
-                  </li>
-                </>
-              )}
 
               {/* Common Menu */}
-              <li>
-                <NavLink
-                  to="/dashboard/my-parcels"
-                  data-tip=" My Parcel"
-                  className={({ isActive }) =>
-                    `is-drawer-close:tooltip is-drawer-close:tooltip-right 
-                    ${isActive ? "text-primary font-semibold underline" : "text-gray-600"}`
-                  }
-                >
-                  <MdDeliveryDining size={25} />
-                  <span className="is-drawer-close:hidden">
-                    My Parcel
-                  </span>
-                </NavLink>
-              </li>
-
-              <li>
-                <NavLink
-                  to="/dashboard/payment-history"
-                  data-tip="payment-history"
-                  className={({ isActive }) =>
-                    `is-drawer-close:tooltip is-drawer-close:tooltip-right 
-                    ${isActive ? "text-primary font-semibold underline" : "text-gray-600"}`
-                  }
-                >
-                  <MdPayment size={25} />
-                  <span className="is-drawer-close:hidden">
-                    payment-history
-                  </span>
-                </NavLink>
-              </li>
 
               {/* Settings */}
               <li>
                 <button
-                data-tip="Settings"
+                  data-tip="Settings"
                   className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

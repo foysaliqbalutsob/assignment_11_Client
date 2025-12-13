@@ -3,13 +3,17 @@ import Logo from "../../../Components/Logo/Logo";
 import { Link, NavLink } from "react-router";
 import useAuth from "../../../Hooks/useauth";
 import { FaUser } from "react-icons/fa";
+import useUserRole from "../../../Hooks/useUserRole";
 
 const Header = () => {
 
   const {user, signOutUser} = useAuth();
   console.log(user);
   console.log(user?.photoURL);
-  console.log(user?.role);
+  
+  const { userData } = useUserRole();
+
+console.log(userData?.role);
 
   const handleLogOut = () =>{
     signOutUser().then(result =>{
@@ -38,56 +42,114 @@ const Header = () => {
         Home
       </NavLink>
     </li>
-      <li>
+
+    {!user && (<>
+
+
+
+    {/* HR  */}
+    <li>
+       <NavLink
+        to="/registration"
+        className={({ isActive }) =>
+          isActive
+            ? "text-primary font-semibold underline"
+            : "text-gray-600"
+        }
+      >
+        Company Registration
+      </NavLink>
+    </li>
+
+  
+
+
+
+
+    {/* employee */}
+    <li>
+       <NavLink
+        to="/employee-registration"
+        className={({ isActive }) =>
+          isActive
+            ? "text-primary font-semibold underline"
+            : "text-gray-600"
+        }
+      >
+        Employee Registration
+      </NavLink>
+    </li>
+
+      </>)}
+
+
+
+
+
+ <li>
         <NavLink
-          to="/service"
+          to="/dashboard/package"
           className={({ isActive }) =>
             isActive ? "text-primary font-semibold underline" : "text-gray-600"
           }
         >
-          Service
+         Package
         </NavLink>
       </li>
+
+       <li>
+        <NavLink
+          to="/dashboard/your-package"
+          className={({ isActive }) =>
+            isActive ? "text-primary font-semibold underline" : "text-gray-600"
+          }
+        >
+          Your Package
+        </NavLink>
+      </li>
+
+
+
+
+
+
+
+
+
+
+<>
+
       <li>
         <NavLink
-        to="/coverage"
-        className={({ isActive }) =>
-          isActive
-            ? "text-primary font-semibold underline"
-            : "text-gray-600"
-        }
-      >
-        Coverage
-      </NavLink>
+          to="/dashboard"
+          className={({ isActive }) =>
+            isActive ? "text-primary font-semibold underline" : "text-gray-600"
+          }
+        >
+         dashboard
+        </NavLink>
       </li>
-       <li>
-       <NavLink
-        to="/sendparcel"
-        className={({ isActive }) =>
-          isActive
-            ? "text-primary font-semibold underline"
-            : "text-gray-600"
-        }
-      >
-        Send a parcel
-      </NavLink>
-    </li>
+
+
+        <li>
+        <NavLink
+          to="/profile"
+          className={({ isActive }) =>
+            isActive ? "text-primary font-semibold underline" : "text-gray-600"
+          }
+        >
+        Profile
+        </NavLink>
+      </li>
+
+      </>
+   
+  
 
     {
       user && <>
 
-             <li>
-       <NavLink
-        to="/dashboard"
-        className={({ isActive }) =>
-          isActive
-            ? "text-primary font-semibold underline"
-            : "text-gray-600"
-        }
-      >
-        DashBoard
-      </NavLink>
-    </li>
+     
       
       
       
@@ -153,7 +215,7 @@ const Header = () => {
                     Dashboard
                   </Link>
                 </li>
-                <li>Role: {user?.role} </li>
+                <li>Role: {userData?.role} </li>
                 <li>
                   <button onClick={handleLogOut}>Logout</button>
                 </li>

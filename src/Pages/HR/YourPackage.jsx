@@ -26,7 +26,7 @@ const YourPackage = () => {
 
       <div className="overflow-x-auto">
         <table className="table table-zebra">
-          <thead>
+          <thead className="border">
             <tr>
               <th>#</th>
               <th>Package</th>
@@ -38,6 +38,7 @@ const YourPackage = () => {
               <th>Date</th>
             </tr>
           </thead>
+         
           <tbody>
             {payments.map((pay, index) => (
               <tr key={pay._id}>
@@ -49,7 +50,7 @@ const YourPackage = () => {
                   <span
                     className={`badge ${
                       pay.status === "paid"
-                        ? "badge-success"
+                        ? "badge-success p-4"
                         : "badge-warning"
                     }`}
                   >
@@ -57,7 +58,7 @@ const YourPackage = () => {
                   </span>
                 </td>
                 <td className="font-mono text-xs">
-                  {pay.transactionId || "—"}
+                  {pay.transactionId || ""}
                 </td>
                 <td className="font-mono text-xs">
                   {pay.trackingId || "—"}

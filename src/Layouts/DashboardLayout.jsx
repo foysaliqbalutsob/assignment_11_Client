@@ -2,12 +2,10 @@ import React from "react";
 import { FaHome } from "react-icons/fa";
 import {
   MdAddBusiness,
-  
   MdGroup,
   MdInventory,
   MdListAlt,
   MdOutlineVideogameAsset,
-  
   MdRequestQuote,
 } from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router";
@@ -16,7 +14,7 @@ import useUserRole from "../Hooks/useUserRole";
 import { AiOutlineTeam } from "react-icons/ai";
 
 const DashboardLayout = () => {
-  const {userData, roleLoading } = useUserRole();
+  const { userData, roleLoading } = useUserRole();
   console.log(userData);
   console.log(userData?.role);
 
@@ -26,16 +24,7 @@ const DashboardLayout = () => {
 
   return (
     <div>
-
       {/* drawer */}
-
-
-    
-
-
-
-
-
 
       <div className="drawer  lg:drawer-open">
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -63,7 +52,7 @@ const DashboardLayout = () => {
                 <path d="M14 10l2 2l-2 2"></path>
               </svg>
             </label>
-            {/* <div className="px-4">Navbar Title</div> */}
+            <div className="px-4">Dashboard </div>
           </nav>
 
           {/* Page content here */}
@@ -89,121 +78,127 @@ const DashboardLayout = () => {
                 </button>
               </Link>
 
-{/* Employee Menu */}
-{userData?.role === "employee" && (
-  <>
-    <li>
-      <NavLink
-        to="/dashboard/my-asset"
-        data-tip="My Asset"
-        className={({ isActive }) =>
-          isActive
-            ? "text-primary font-semibold underline is-drawer-close:tooltip is-drawer-close:tooltip-right"
-            : "text-gray-600"
-        }
-      >
-        <MdOutlineVideogameAsset size={25} />
-        <span className="is-drawer-close:hidden is-drawer-close:tooltip is-drawer-close:tooltip-right">My Asset</span>
-      </NavLink>
-    </li>
+              {/* Employee Menu */}
+              {userData?.role === "employee" && (
+                <>
+                  <li>
+  <div className="tooltip tooltip-right" data-tip="My Asset">
+    <NavLink
+      to="/dashboard/my-asset"
+      className={({ isActive }) =>
+        isActive
+          ? "text-primary font-semibold underline"
+          : "text-gray-600"
+      }
+    >
+      <MdOutlineVideogameAsset size={25} />
+      <span className="ml-2 hidden lg:inline">My Asset</span>
+    </NavLink>
+  </div>
+</li>
 
-    <li>
-      <NavLink
-        to="/dashboard/my-team"
-        data-tip="My Team"
-        className={({ isActive }) =>
-          isActive
-            ? "text-primary font-semibold underline"
-            : "text-gray-600"
-        }
-      >
-        <AiOutlineTeam size={25} />
-        <span className="is-drawer-close:hidden">My Team</span>
-      </NavLink>
-    </li>
+                  <li>
+                    <NavLink
+                      to="/dashboard/my-team"
+                      data-tip="My Team"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-primary font-semibold underline"
+                          : "text-gray-600"
+                      }
+                    >
+                      <AiOutlineTeam size={25} />
+                      <span className="is-drawer-close:hidden">My Team</span>
+                    </NavLink>
+                  </li>
 
-    <li>
-      <NavLink
-        to="/dashboard/request-asset"
-        data-tip="Request Asset"
-        className={({ isActive }) =>
-          isActive
-            ? "text-primary font-semibold underline"
-            : "text-gray-600"
-        }
-      >
-        <MdRequestQuote size={25} />
-        <span className="is-drawer-close:hidden">Request Asset</span>
-      </NavLink>
-    </li>
-  </>
-)}
+                  <li>
+                    <NavLink
+                      to="/dashboard/request-asset"
+                      data-tip="Request Asset"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-primary font-semibold underline"
+                          : "text-gray-600"
+                      }
+                    >
+                      <MdRequestQuote size={25} />
+                      <span className="is-drawer-close:hidden">
+                        Request Asset
+                      </span>
+                    </NavLink>
+                  </li>
+                </>
+              )}
 
-{/* HR Menu */}
-{userData?.role === "hr" && (
-  <>
-    <li>
-      <NavLink
-        to="/dashboard/add-asset"
-        data-tip="Add Asset"
-        className={({ isActive }) =>
-          isActive
-            ? "text-primary font-semibold underline"
-            : "text-gray-600"
-        }
-      >
-        <MdAddBusiness size={25} />
-        <span className="is-drawer-close:hidden">Add Asset</span>
-      </NavLink>
-    </li>
+              {/* HR Menu */}
+              {userData?.role === "hr" && (
+                <>
+                  <li>
+                    <NavLink
+                      to="/dashboard/add-asset"
+                      data-tip="Add Asset"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-primary font-semibold underline"
+                          : "text-gray-600"
+                      }
+                    >
+                      <MdAddBusiness size={25} />
+                      <span className="is-drawer-close:hidden">Add Asset</span>
+                    </NavLink>
+                  </li>
 
-    <li>
-      <NavLink
-        to="/dashboard/asset-list"
-        data-tip="Asset List"
-        className={({ isActive }) =>
-          isActive
-            ? "text-primary font-semibold underline"
-            : "text-gray-600"
-        }
-      >
-        <MdInventory size={25} />
-        <span className="is-drawer-close:hidden">Asset List</span>
-      </NavLink>
-    </li>
+                  <li>
+                    <NavLink
+                      to="/dashboard/asset-list"
+                      data-tip="Asset List"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-primary font-semibold underline"
+                          : "text-gray-600"
+                      }
+                    >
+                      <MdInventory size={25} />
+                      <span className="is-drawer-close:hidden">Asset List</span>
+                    </NavLink>
+                  </li>
 
-    <li>
-      <NavLink
-        to="/dashboard/all-request"
-        data-tip="All Requests"
-        className={({ isActive }) =>
-          isActive
-            ? "text-primary font-semibold underline"
-            : "text-gray-600"
-        }
-      >
-        <MdListAlt size={25} />
-        <span className="is-drawer-close:hidden">All Requests</span>
-      </NavLink>
-    </li>
+                  <li>
+                    <NavLink
+                      to="/dashboard/all-request"
+                      data-tip="All Requests"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-primary font-semibold underline"
+                          : "text-gray-600"
+                      }
+                    >
+                      <MdListAlt size={25} />
+                      <span className="is-drawer-close:hidden">
+                        All Requests
+                      </span>
+                    </NavLink>
+                  </li>
 
-    <li>
-      <NavLink
-        to="/dashboard/employee-list"
-        data-tip="Employee List"
-        className={({ isActive }) =>
-          isActive
-            ? "text-primary font-semibold underline"
-            : "text-gray-600"
-        }
-      >
-        <MdGroup size={25} />
-        <span className="is-drawer-close:hidden">Employee List</span>
-      </NavLink>
-    </li>
-  </>
-)}
-
+                  <li>
+                    <NavLink
+                      to="/dashboard/employee-list"
+                      data-tip="Employee List"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-primary font-semibold underline"
+                          : "text-gray-600"
+                      }
+                    >
+                      <MdGroup size={25} />
+                      <span className="is-drawer-close:hidden">
+                        Employee List
+                      </span>
+                    </NavLink>
+                  </li>
+                </>
+              )}
 
               {/* Common Menu */}
 

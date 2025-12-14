@@ -56,7 +56,7 @@ const PaymentSuccess = () => {
       </div>
       <Link to="/dashboard">
         <button className="btn btn-primary mt-10 block mx-auto">
-          Go to Enrolled Classes
+          Go to DashBoard
         </button>
       </Link>
     </div>

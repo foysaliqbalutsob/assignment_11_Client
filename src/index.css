@@ -57,3 +57,17 @@ body{
   
   font-style: normal;
 }
+
+
+[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  background: black;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  left: 100%;
+  margin-left: 8px;
+  z-index: 50;
+}

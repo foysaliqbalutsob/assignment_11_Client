@@ -1,5 +1,5 @@
 import React from "react";
-import logo from '../../assets/banner/AssetIQ.jpg'
+import logo from '../../assets/banner/Logo.png'
 import { Link } from "react-router";
 
 const Logo = () => {
@@ -7,8 +7,8 @@ const Logo = () => {
     <div className="flex   ">
       
       <Link to="/" className="flex items-center gap-2">
-        <img src={logo} alt="AssetIQ" className="h-10" />
-        <span className="text-3xl font-bold">AssetIQ</span>
+        <img src={logo} alt="" className="h-20 " />
+        <span className="text-3xl font-bold">AssetVerse</span>
       </Link>
     </div>
   );

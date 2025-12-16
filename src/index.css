@@ -3,7 +3,7 @@
 @import "tailwindcss";
 
 @plugin "daisyui" {
-  themes: "light" ;
+  themes: ["light", "dark"];
 }
 
 
@@ -12,7 +12,7 @@
   default: true;
 
   /* Colors */
-  --color-primary: #7909DA;       /* Navbar, headings */
+  --color-primary: #03551C;       /* Navbar, headings */
   --color-secondary: #CDF2FF;     /* Highlights, secondary buttons */
   --color-accent: #3B82F6;        /* CTA buttons */
   --color-neutral: #F3F4F6;       /* Background */
@@ -58,16 +58,13 @@ body{
   font-style: normal;
 }
 
-
-[data-tip]:hover::after {
-  content: attr(data-tip);
-  position: absolute;
-  background: black;
+.btn {
+  font-weight: 600;
   color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  white-space: nowrap;
-  left: 100%;
-  margin-left: 8px;
-  z-index: 50;
+  
+}
+
+.btn:hover {
+  border-radius: 0.75rem;
+  background: blueviolet;
 }

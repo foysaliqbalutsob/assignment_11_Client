@@ -10,6 +10,7 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
+import Loading from "../Components/Loading/Loading";
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -65,6 +66,9 @@ const AuthProvider = ({ children }) => {
 
 
   }, []);
+  if(loading){
+    return <Loading></Loading> 
+  }
 
   const authInfo = {
     user,

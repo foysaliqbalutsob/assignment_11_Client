@@ -9,7 +9,7 @@ import {
   MdRequestQuote,
 } from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router";
-import UseRole from "../Hooks/UseRole";
+
 import useUserRole from "../Hooks/useUserRole";
 import { AiOutlineTeam } from "react-icons/ai";
 
@@ -81,21 +81,25 @@ const DashboardLayout = () => {
               {/* Employee Menu */}
               {userData?.role === "employee" && (
                 <>
-                  <li>
-  <div className="tooltip tooltip-right" data-tip="My Asset">
-    <NavLink
-      to="/dashboard/my-asset"
-      className={({ isActive }) =>
-        isActive
-          ? "text-primary font-semibold underline"
-          : "text-gray-600"
-      }
-    >
-      <MdOutlineVideogameAsset size={25} />
-      <span className="ml-2 hidden lg:inline">My Asset</span>
-    </NavLink>
-  </div>
-</li>
+                
+
+                   <li>
+                    <NavLink
+                      to="/dashboard/my-asset"
+                      data-tip="My Asset"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "text-primary font-semibold underline"
+                          : "text-gray-600"
+                      }
+                    >
+                      <MdOutlineVideogameAsset size={25} />
+                      <span className="is-drawer-close:hidden">My asset</span>
+                    </NavLink>
+                  </li>
+
+
+
 
                   <li>
                     <NavLink

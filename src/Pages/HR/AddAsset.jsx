@@ -5,7 +5,7 @@ import useAxios from "../../Hooks/useAxios";
 import Swal from "sweetalert2";
 
 const AddAsset = () => {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const { user } = useAuth();
   const axiosSecure = useAxios();
 
@@ -23,7 +23,7 @@ const AddAsset = () => {
     if (!import.meta.env.VITE_HOST_NAME) return Swal.fire("Error", "IMGBB key missing", "error");
 
     try {
-      setLoading(true);
+      setIsLoading(true);
 
       
       const formData = new FormData();
@@ -59,7 +59,7 @@ const AddAsset = () => {
       console.error(err);
       Swal.fire("Error", "Something went wrong", "error");
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -146,10 +146,15 @@ const AddAsset = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="btn btn-primary border-none w-full mt-4"
-            disabled={loading}
+            className="btn btn-primary border-none text-white w-full mt-4"
+            disabled={isLoading}
           >
-            {loading ? "Adding..." : "Add Asset"}
+            {isLoading ? (
+    <span className="loading loading-bars loading-sm"></span>
+  ) : (
+    "Add Asset"
+  )}
+            
           </button>
         </form>
       </div>

@@ -9,7 +9,7 @@ import SocialLogIn from "../SocialLogIn/SocialLogIn";
 
 const Registration = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -23,25 +23,18 @@ const Registration = () => {
 
   const handleRegistration = async (data) => {
     try {
-      setLoading(true);
+      setIsLoading(true);
 
       const imageAPI = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_HOST_NAME}`;
 
-      /* ================= Upload HR Photo ================= */
-      // const photoForm = new FormData();
-      // photoForm.append("image", data.photo[0]);
-
-      // const photoRes = await axios.post(imageAPI, photoForm);
-      // const photoURL = photoRes.data.data.url;
-
-      /* ================= Upload Company Logo ================= */
+   
       const logoForm = new FormData();
       logoForm.append("image", data.companyLogo[0]);
 
       const logoRes = await axios.post(imageAPI, logoForm);
       const companyLogoUrl = logoRes.data.data.url;
 
-      /* ================= Firebase Auth ================= */
+      
       await registerUser(data.email, data.password);
 
       await updateUserprofile({
@@ -49,7 +42,7 @@ const Registration = () => {
         photoURL: companyLogoUrl,
       });
 
-      /* ================= Final User Object ================= */
+
       const userProfile = {
         name: data.name,
         email: data.email,
@@ -71,7 +64,7 @@ const Registration = () => {
       console.error(error);
       alert(error.message);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -186,10 +179,14 @@ const Registration = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="btn btn-primary w-full"
-              disabled={loading}
+              className="btn btn-primary border-none text-white w-full"
+              disabled={isLoading}
             >
-              {loading ? "Registering..." : "Register"}
+              {isLoading ? (
+    <span className="loading loading-bars loading-sm"></span>
+  ) : (
+    "Registration"
+  )}
             </button>
           </fieldset>
         </form>

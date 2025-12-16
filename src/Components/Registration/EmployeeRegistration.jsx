@@ -9,7 +9,7 @@ import useAxios from "../../Hooks/useAxios";
 
 const EmployeeRegistration= () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -25,7 +25,7 @@ const EmployeeRegistration= () => {
 
   const handleRegistration = async (data) => {
     try {
-      setLoading(true); 
+      setIsLoading(true); 
       const profileImg = data.photo[0];
       
 
@@ -70,7 +70,7 @@ const EmployeeRegistration= () => {
       alert(error.message);
     }
     finally {
-    setLoading(false); 
+    setIsLoading(false); 
   }
   };
 
@@ -208,13 +208,15 @@ const EmployeeRegistration= () => {
             {/* Register Button */}
  <button
   type="submit"
-  className="btn w-full bg-primary border-none mt-4 relative"
-  disabled={loading}
+  className="btn w-full bg-primary border-none mt-4 text-white relative"
+  disabled={isLoading}
 >
-  {loading && (
-    <span className="loading loading-spinner loading-sm absolute left-4"></span>
+  
+           {isLoading ? (
+    <span className="loading loading-bars loading-sm"></span>
+  ) : (
+    "Add Asset"
   )}
-  {loading ? "Registering..." : "Register"}
 </button>
 
 

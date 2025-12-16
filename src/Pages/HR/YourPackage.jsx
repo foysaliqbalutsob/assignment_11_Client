@@ -24,7 +24,57 @@ const YourPackage = () => {
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-6">Your Packages</h2>
 
-      <div className="overflow-x-auto">
+
+
+          {/* ============ MOBILE CARD VIEW ============ */}
+      <div className="md:hidden space-y-4">
+        {payments.length === 0 && (
+          <p className="text-center py-6">No payments found</p>
+        )}
+        {payments.map((pay, index) => (
+          <div
+            key={pay._id}
+            className="card bg-base-100 shadow-md p-4 border rounded-lg"
+          >
+            <p>
+              <span className="font-semibold">#</span> {index + 1}
+            </p>
+            <p>
+              <span className="font-semibold">Package:</span> {pay.packageName}
+            </p>
+            <p>
+              <span className="font-semibold">Employees:</span> {pay.employeeLimit}
+            </p>
+            <p>
+              <span className="font-semibold">Amount ($):</span> {pay.amount}
+            </p>
+            <p>
+              <span className="font-semibold">Status:</span>{" "}
+              <span
+                className={`badge ${
+                  pay.status === "paid" ? "badge-success" : "badge-warning"
+                }`}
+              >
+                {pay.status}
+              </span>
+            </p>
+            <p>
+              <span className="font-semibold">Transaction ID:</span>{" "}
+              <span className="font-mono text-xs">{pay.transactionId || "—"}</span>
+            </p>
+            <p>
+              <span className="font-semibold">Tracking ID:</span>{" "}
+              <span className="font-mono text-xs">{pay.trackingId || "—"}</span>
+            </p>
+            <p>
+              <span className="font-semibold">Date:</span>{" "}
+              {new Date(pay.paymentDate).toLocaleDateString()}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div className="hidden md:block overflow-x-auto bg-base-100 shadow rounded-lg">
         <table className="table table-zebra">
           <thead className="border">
             <tr>

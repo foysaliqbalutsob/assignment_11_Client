@@ -25,6 +25,7 @@ import HrRoute from "./HrRoute";
 import EmployeeOnlyRoute from "./EmployeeOnlyRoute";
 import PaymentSuccess from "../Pages/Dashboard/PaymentSuccess";
 import YourPackage from "../Pages/HR/YourPackage";
+import PaymentCancel from "../Pages/Dashboard/PaymentCancel";
 
 export const router = createBrowserRouter([
   {
@@ -38,50 +39,7 @@ export const router = createBrowserRouter([
       {
         path:'/profile',
         element:<Profile></Profile>
-      }
-    
-     
-      
-      
-
-    ],
-  },
-
-
-  {
-    path:'/',
-    element:<AuthLayout></AuthLayout>,
-    children: [
-      {
-        path: '/login',
-        element:<Login></Login>
       },
-      {
-        path:'/registration',
-        element:<Registration></Registration>
-      },{
-        path:'/employee-registration',
-        element:<EmployeeRegistration></EmployeeRegistration>
-      }
-
-
-
-    ]
-
-  }
-
-
-  ,      {
-  path: '/dashboard',
-  element: (
-    <PrivateRoute>
-      <DashboardLayout />
-    </PrivateRoute>
-  ),
-  children: [
-
-
-    // Employee
 
 
       {
@@ -130,7 +88,7 @@ export const router = createBrowserRouter([
         <Package></Package>
         </HrRoute>
       },{
-        path:'payment-success',
+        path:'/dashboard/payment-success',
         element: <PaymentSuccess></PaymentSuccess>
       },
       {
@@ -140,7 +98,51 @@ export const router = createBrowserRouter([
         </HrRoute>
         
         
+      },
+      {
+        path:'/dashboard/payment-cancel',
+        element: <PaymentCancel></PaymentCancel>
+      },
+    
+     
+      
+      
+
+    ],
+  },
+
+
+  {
+    path:'/',
+    element:<AuthLayout></AuthLayout>,
+    children: [
+      {
+        path: '/login',
+        element:<Login></Login>
+      },
+      {
+        path:'/registration',
+        element:<Registration></Registration>
+      },{
+        path:'/employee-registration',
+        element:<EmployeeRegistration></EmployeeRegistration>
       }
+
+
+
+    ]
+
+  }
+
+
+  ,     
+ 
+
+
+    
+
+
+      
       
 
       // {
@@ -162,7 +164,7 @@ export const router = createBrowserRouter([
 
 
     
-  ]
-}
+  
+
 
 ]);

@@ -24,16 +24,16 @@ const Band = () => {
         clickable: true,
       }}
       navigation={true}
-        modules={[Autoplay ]}
-        className="mySwiper"
+      modules={[Autoplay]}
+      className="mySwiper"
       autoplay={{
         delay: 2500,
         disableOnInteraction: false,
       }}
-      
     >
       {brandLogo.map((logo) => (
-        <SwiperSlide>
+        
+        <SwiperSlide className="m-8">
           <img src={logo} alt="" className=" w-auto object-contain" />
         </SwiperSlide>
       ))}

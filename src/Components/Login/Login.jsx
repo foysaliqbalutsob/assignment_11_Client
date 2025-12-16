@@ -7,6 +7,7 @@ import SocialLogIn from "../SocialLogIn/SocialLogIn";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -23,6 +24,7 @@ const Login = () => {
     signInUser(data.email, data.password)
       .then((result) => {
         console.log(result.user);
+        setIsLoading(true);
 
         // Redirect to previous page
         navigate(from, { replace: true });
@@ -82,8 +84,13 @@ const Login = () => {
             <div>
               <a className="link link-hover">Forgot password?</a>
             </div>
-
-            <button className="btn bg-primary mt-4">Login</button>
+            <button type="submit" className="btn btn-primary w-full mt-4">
+              {isLoading ? (
+                <span className="loading loading-bars loading-sm"></span>
+              ) : (
+                "Login"
+              )}
+            </button>
 
             <Link className="underline text-xs text-blue-400" to={"/registration"}>
               Register?

@@ -1,14 +1,4 @@
-import React from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, EffectCoverflow, Pagination } from "swiper/modules";
-import ReviewCard from "./ReviewCard";
-
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/pagination";
-
-const Review = () => {
-  const data =[
+[
   {
     "id": "av001",
     "userEmail": "john.doe@company.com",
@@ -106,58 +96,3 @@ const Review = () => {
     "date": "2024-08-20T07:30:00.000Z"
   }
 ]
-
-
-  return (
-    <section className="py-16 bg-gray-50">
-      {/* Section Header */}
-      <div className="text-center mb-12 px-4">
-        <h3 className="text-3xl font-extrabold text-gray-900">
-          What Our Customers Are Saying
-        </h3>
-        <p className="text-gray-600 max-w-xl mx-auto mt-3">
-          Real feedback from teams using AssetVerse to manage, track, and optimize company assets efficiently.
-        </p>
-      </div>
-
-      {/* Swiper */}
-      <div className="max-w-7xl mx-auto px-4">
-        <Swiper
-          // effect="coverflow"
-          grabCursor={true}
-          centeredSlides={false} 
-           spaceBetween={30} 
-          // centeredSlides={true}
-          loop={true}
-          slidesPerView={1}
-          breakpoints={{
-            640: { slidesPerView: 1 },
-            768: { slidesPerView: 2 },
-            1024: { slidesPerView: 3 },
-          }}
-          // coverflowEffect={{
-          //   rotate: 20,
-          //   stretch: 0,
-          //   depth: 100,
-          //   modifier: 2,
-          //   slideShadows: true,
-          // }}
-          autoplay={{
-            delay: 3000,
-            disableOnInteraction: false,
-          }}
-          pagination={{ clickable: true }}
-          modules={[EffectCoverflow, Autoplay, Pagination]}
-        >
-          {data.map((item) => (
-            <SwiperSlide key={item.id} className="flex justify-center">
-              <ReviewCard data={item} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-    </section>
-  );
-};
-
-export default Review;

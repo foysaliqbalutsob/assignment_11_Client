@@ -1,5 +1,5 @@
 import React from "react";
-import animationData from "../../../public/forbidden403.json";
+import animationData from "../../../src/assets/forbidden/forbidden403.json";
 import Lottie from "lottie-react";
 import { Link } from "react-router";
 

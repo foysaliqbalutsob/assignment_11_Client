@@ -1,10 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap'); 
+@import "tailwindcss"; 
+@plugin "daisyui";
 
-@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
-@import "tailwindcss";
 
-@plugin "daisyui" {
-  themes: ["light", "dark"];
-}
 
 
 @plugin "daisyui/theme" {
@@ -46,25 +44,18 @@
   
   --animation-btn: 0.8s;
 }
+body { 
+  font-family: "Urbanist", sans-serif; 
+  font-optical-sizing: auto; 
+  font-style: normal; 
+} 
 
+.btn { 
+  font-weight: 600; 
+  color: white; 
+} 
 
-
-
-
-body{
-  font-family: "Urbanist", sans-serif;
-  font-optical-sizing: auto;
-  
-  font-style: normal;
-}
-
-.btn {
-  font-weight: 600;
-  color: white;
-  
-}
-
-.btn:hover {
-  border-radius: 0.75rem;
-  background: blueviolet;
+.btn:hover { 
+  border-radius: 0.75rem; 
+  background: blueviolet; 
 }

@@ -14,16 +14,19 @@ const EmployeeList = () => {
     enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get(`/assigned-assets/hr/${user.email}`);
+      
       return res.data;
+      
     },
   });
+ 
 
   if (isLoading) return <Loading />;
 
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">Employee Asset List</h2>
-      <p className="mb-10">Total employees: {employeeAssets.length}   </p>
+      <p className="mb-10">Total employees: {employeeAssets.length}</p>
 
       
       <div className="md:hidden space-y-4">
@@ -42,6 +45,8 @@ const EmployeeList = () => {
             </p>
             <p>
               <span className="font-semibold">Email:</span> {a.requesterEmail}
+
+              
             </p>
 
             {/* Asset */}

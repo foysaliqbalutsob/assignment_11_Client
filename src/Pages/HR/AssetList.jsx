@@ -11,6 +11,7 @@ const AssetList = () => {
   const axiosSecure = useAxios();
   const [selectedAsset, setSelectedAsset] = useState(null);
   const { register, handleSubmit, reset } = useForm();
+  const [search, setSearch] = useState("");
 
   const { data: assets = [], isLoading, isError,refetch } = useQuery({
     queryKey: ["assets"],
@@ -123,10 +124,18 @@ const handleDelete = async (asset) => {
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Asset List</h2>
+      <input
+  type="text"
+  placeholder="Search assets..."
+  className="input input-bordered mb-4 max-w-sm"
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+/>
+
       <div className="overflow-x-auto">
 
 
-        {/* ================= MOBILE CARD VIEW ================= */}
+       
       <div className="md:hidden space-y-4">
         {assets.length === 0 && (
           <p className="text-center py-6">No assets found</p>

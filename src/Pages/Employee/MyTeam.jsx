@@ -1,85 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import useAuth from "../../Hooks/useauth";
-// import useAxios from "../../Hooks/useAxios";
-
-// const MyTeam = () => {
-//   const { user } = useAuth();
-//   const axiosSecure = useAxios();
-
-//   const [companies, setCompanies] = useState([]);
-//   const [selectedCompany, setSelectedCompany] = useState("");
-//   const [employees, setEmployees] = useState([]);
-
-//   // Load companies
-//   useEffect(() => {
-//     if (!user?.email) return;
-
-//     axiosSecure
-//       .get(`/employee/companies/${user.email}`)
-//       .then((res) => {
-//         setCompanies(res.data);
-//         console.log('companies')
-//         if (res.data.length) {
-//           setSelectedCompany(res.data[0].companyName);
-//         }
-//       });
-//   }, [user?.email]);
-//   console.log(companies);
-//   console.log(selectedCompany)
-
- 
-
-  
-
-//   return (
-//     <div className="p-6">
-//       <h2 className="text-2xl font-bold mb-6">My Team</h2>
-
-//       {/* Company Dropdown */}
-//       <select
-//         className="select select-bordered mb-6 max-w-xs"
-//         value={selectedCompany}
-//         onChange={(e) => setSelectedCompany(e.target.value)}
-//       >
-//         {companies.map((company) => (
-//           <option
-//             key={company.companyName}
-//             value={company.companyName}
-//           >
-//             {company.companyName}
-//           </option>
-//         ))}
-//       </select>
-
-//       {/* Employee Cards */}
-//       <div className="grid md:grid-cols-3 gap-6 mb-10">
-//         {employees.map((emp) => (
-//           <div
-//             key={emp.email}
-//             className="card bg-base-100 shadow-md"
-//           >
-//             <div className="card-body items-center text-center">
-//               <img
-//                 src={emp.photo || "/avatar.png"}
-//                 className="w-16 h-16 rounded-full mb-2"
-//               />
-//               <h3 className="font-semibold">{emp.name}</h3>
-//               <p className="text-sm text-gray-500">{emp.email}</p>
-//               <p className="text-sm capitalize">{emp.position}</p>
-//             </div>
-//           </div>
-//         ))}
-//       </div>
-
-//       {/* Upcoming Birthdays */}
-     
-//     </div>
-//   );
-// };
-
-// export default MyTeam;
-
-
 import React, { useEffect, useState } from "react";
 import useAuth from "../../Hooks/useauth";
 import useAxios from "../../Hooks/useAxios";
@@ -92,7 +10,7 @@ const MyTeam = () => {
   const [selectedCompany, setSelectedCompany] = useState("");
   const [employees, setEmployees] = useState([]);
 
-  // 1️⃣ Load companies for this employee
+  // Load companies
   useEffect(() => {
     if (!user?.email) return;
 
@@ -104,55 +22,74 @@ const MyTeam = () => {
           setSelectedCompany(res.data[0].companyName);
         }
       })
-      .catch(err => console.log(err));
+      .catch(console.log);
   }, [user?.email]);
 
-  // 2️⃣ Load employees for selected company
+  // Load employees by company
   useEffect(() => {
     if (!selectedCompany) return;
 
     axiosSecure
       .get(`/company/${selectedCompany}`)
       .then((res) => setEmployees(res.data))
-      .catch(err => console.log(err));
+      .catch(console.log);
   }, [selectedCompany]);
 
-  // 3️⃣ Upcoming birthdays (current month)
+  // Upcoming birthdays
   const currentMonth = new Date().getMonth();
-  const upcomingBirthdays = employees.filter(emp => {
-    if (!emp.dateOfBirth) return false;
-    return new Date(emp.dateOfBirth).getMonth() === currentMonth;
-  });
+  const upcomingBirthdays = employees.filter(
+    (emp) =>
+      emp.dateOfBirth &&
+      new Date(emp.dateOfBirth).getMonth() === currentMonth
+  );
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-6">My Team</h2>
+    <div className="p-6 max-w-7xl mx-auto text-base-content">
+      
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+        <h2 className="text-2xl font-bold">My Team</h2>
 
-      {/* Company Dropdown */}
-      <select
-        className="select select-bordered mb-6 max-w-xs"
-        value={selectedCompany}
-        onChange={(e) => setSelectedCompany(e.target.value)}
-      >
-        {companies.map((company) => (
-          <option key={company.companyName} value={company.companyName}>
-            {company.companyName}
-          </option>
-        ))}
-      </select>
+        <div className="form-control max-w-xs">
+          <label className="label pb-1">
+            <span className="label-text text-sm">
+              Select your affiliated company
+            </span>
+          </label>
+          <select
+            className="select select-bordered"
+            value={selectedCompany}
+            onChange={(e) => setSelectedCompany(e.target.value)}
+          >
+            {companies.map((company) => (
+              <option
+                key={company.companyName}
+                value={company.companyName}
+              >
+                {company.companyName}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
 
       {/* Employee Cards */}
-      <div className="grid md:grid-cols-3 gap-6 mb-10">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 ">
         {employees.map((emp) => (
-          <div key={emp.email} className="card bg-base-100 shadow-md">
+          <div
+            key={emp.email}
+            className="card bg-base-100 shadow-sm hover:shadow-lg transition-shadow border"
+          >
             <div className="card-body items-center text-center">
               <img
                 src={emp.photo || "/avatar.png"}
-                className="w-16 h-16 rounded-full mb-2"
+                alt={emp.name}
+                className="w-16 h-16 rounded-full mb-3"
               />
-              <h3 className="font-semibold">{emp.name}</h3>
-              <p className="text-sm text-gray-500">{emp.email}</p>
-              <p className="text-sm capitalize">{emp.position}</p>
+              <h3 className="font-semibold text-lg">{emp.name}</h3>
+              <p className="text-sm opacity-70">{emp.email}</p>
+              <p className="text-xs uppercase tracking-wide opacity-60">
+                {emp.position}
+              </p>
             </div>
           </div>
         ))}
@@ -160,19 +97,24 @@ const MyTeam = () => {
 
       {/* Upcoming Birthdays */}
       {upcomingBirthdays.length > 0 && (
-        <div>
-          <h3 className="text-xl font-semibold mb-3">
+        <div className="mt-12 border-t border-base-300 pt-6">
+          <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
             🎂 Upcoming Birthdays This Month
           </h3>
-          <ul className="space-y-2">
-            {upcomingBirthdays.map(emp => (
-              <li key={emp.email} className="flex items-center gap-3">
+
+          <ul className="space-y-3">
+            {upcomingBirthdays.map((emp) => (
+              <li
+                key={emp.email}
+                className="flex items-center gap-3 bg-base-100 p-3 rounded-lg shadow-sm"
+              >
                 <img
                   src={emp.photo || "/avatar.png"}
+                  alt={emp.name}
                   className="w-8 h-8 rounded-full"
                 />
-                <span>
-                  {emp.name} –{" "}
+                <span className="text-sm">
+                  <span className="font-medium">{emp.name}</span> —
                   {new Date(emp.dateOfBirth).toLocaleDateString()}
                 </span>
               </li>

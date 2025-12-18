@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useAuth from "../../Hooks/useauth";
 import useAxios from "../../Hooks/useAxios";
+import axios from "axios";
 
 const MyTeam = () => {
   const { user } = useAuth();
@@ -9,6 +10,10 @@ const MyTeam = () => {
   const [companies, setCompanies] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState("");
   const [employees, setEmployees] = useState([]);
+  useEffect(()=>{
+    const res = axios('')
+
+  },[companies])
 
   // Load companies
   useEffect(() => {
@@ -35,7 +40,7 @@ const MyTeam = () => {
       .catch(console.log);
   }, [selectedCompany]);
 
-  // Upcoming birthdays
+  
   const currentMonth = new Date().getMonth();
   const upcomingBirthdays = employees.filter(
     (emp) =>
@@ -90,13 +95,18 @@ const MyTeam = () => {
               <p className="text-xs uppercase tracking-wide opacity-60">
                 {emp.position}
               </p>
+            {/* <p>{emp.dateOfBirth}</p> */}
+            <p className="text-sm opacity-70">
+  🎂 {new Date(emp.dateOfBirth).toLocaleDateString()}
+</p>
+
             </div>
           </div>
         ))}
       </div>
 
-      {/* Upcoming Birthdays */}
-      {upcomingBirthdays.length > 0 && (
+  
+       {upcomingBirthdays.length > 0 && (
         <div className="mt-12 border-t border-base-300 pt-6">
           <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
             🎂 Upcoming Birthdays This Month
@@ -127,3 +137,6 @@ const MyTeam = () => {
 };
 
 export default MyTeam;
+
+
+

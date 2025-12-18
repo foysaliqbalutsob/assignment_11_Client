@@ -115,7 +115,7 @@ await refetchUserRole();
     <p>package limit: {packageLimit}</p>
 
 
-    {/* ================= MOBILE CARD VIEW ================= */}
+    
       <div className="md:hidden space-y-4">
         {allRequests.length === 0 && (
           <p className="text-center py-6">No requests found</p>
@@ -223,6 +223,7 @@ await refetchUserRole();
             <th>Asset</th>
             <th>Company</th>
             <th>Date</th>
+            <th>Quantity</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
@@ -264,6 +265,9 @@ await refetchUserRole();
 
               {/* Date */}
               <td>{new Date(req.requestDate).toLocaleDateString()}</td>
+
+
+              {/* <td>{req.}</td> */}
 
               {/* Status */}
               <td>

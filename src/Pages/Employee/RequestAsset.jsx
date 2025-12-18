@@ -1,25 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../Hooks/useAxios";
 import useAuth from "../../Hooks/useauth";
 import Swal from "sweetalert2";
 import Loading from "../../Components/Loading/Loading";
+import useUserRole from "../../Hooks/useUserRole";
 
 const RequestAsset = () => {
   const axiosSecure = useAxios();
   const { user } = useAuth();
+  const {userData} =useUserRole();
+   console.log(userData.dateOfBirth);
 
   const [selectedAsset, setSelectedAsset] = useState(null);
   const [note, setNote] = useState("");
+  console.log(selectedAsset);
+  const [quantity, setQuantity] = useState(null);
+  const [productQuantity, SetProductQuantity] = useState();
+  console.log(productQuantity);
+  console.log(quantity)
 
-  // 🔹 Load all assets
+  // Load all assets
   const { data: assets = [], isLoading } = useQuery({
     queryKey: ["assets"],
     queryFn: async () => {
       const res = await axiosSecure.get("/assets");
-      console.log(assets)
+      // console.log(assets);
       return res.data;
-      
     },
   });
 
@@ -28,36 +35,37 @@ const RequestAsset = () => {
     queryKey: ["myRequests", user?.email],
     enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axiosSecure.get(
-        `/asset-requests/user/${user.email}`
-      );
+      const res = await axiosSecure.get(`/asset-requests/user/${user.email}`);
       return res.data;
     },
   });
 
+
+
   const getButtonState = (assetId) => {
-    console.log(assetId)
+    // console.log(assetId);
     const req = myRequests.find((r) => r.assetId === assetId);
-   
-    
+
     if (req) {
       if (req.requestStatus === "pending") return "Pending";
       if (req.requestStatus === "rejected") return "rejected - Request Again";
       // if (req.requestStatus === "approved" || req.) return "Request accepted";
-       if (req.requestStatus === "approved") {
-    if (req.assetType === "Returnable") {
-      return `Accepted (Return by ${new Date(
-        req.returnDeadline
-      ).toLocaleDateString()})`;
-    }
-    return "Accepted (Non-returnable)";
-  }
+      if (req.requestStatus === "approved") {
+        if (req.assetType === "Returnable") {
+          return `Accepted (Return by ${new Date(
+            req.returnDeadline
+          ).toLocaleDateString()})`;
+        }
+        return "Accepted (Non-returnable)";
+      }
     }
     return "Request";
   };
 
   const openModal = (asset) => {
     setSelectedAsset(asset);
+    setQuantity(asset.availableQuantity);
+    SetProductQuantity(asset.productQuantity);
     document.getElementById("request_modal").showModal();
   };
 
@@ -72,11 +80,16 @@ const RequestAsset = () => {
         assetId: selectedAsset._id,
         assetName: selectedAsset.productName,
         assetType: selectedAsset.productType,
+
+        productQuantity: productQuantity,
+
+        availableQuantity: quantity,
         requesterName: user.displayName,
         hrEmail: selectedAsset.hrEmail,
         companyName: selectedAsset.companyName,
         requesterEmail: user.email,
         requestStatus: "pending",
+        requesterBirthOfDate: userData.dateOfBirth || null,
         note,
       });
 
@@ -97,11 +110,6 @@ const RequestAsset = () => {
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-6">Request Asset</h2>
 
-
-
-
-
-            
       <div className="md:hidden space-y-4">
         {assets.length === 0 && (
           <p className="text-center py-6">No assets available</p>
@@ -151,15 +159,11 @@ const RequestAsset = () => {
         })}
       </div>
 
-      
       <div className="hidden md:block overflow-x-auto bg-base-100 shadow rounded-lg">
-
-
-     
         <table className="table table-zebra">
           <thead>
             <tr>
-                <th>Index</th>
+              <th>Index</th>
               <th>Asset</th>
               <th>Company</th>
               <th>Type</th>
@@ -169,18 +173,17 @@ const RequestAsset = () => {
           </thead>
 
           <tbody>
-            {assets.map((asset,index) => {
+            {assets.map((asset, index) => {
               const buttonText = getButtonState(asset._id);
               const disabled =
                 buttonText === "Pending" ||
                 buttonText === "Requested" ||
-                  buttonText === "Returnable" ||
-
+                buttonText === "Returnable" ||
                 asset.availableQuantity === 0;
 
               return (
                 <tr key={asset._id}>
-                    <td>{index + 1}</td>
+                  <td>{index + 1}</td>
                   <td className="flex items-center gap-3">
                     <img
                       src={asset.productImage}
@@ -188,19 +191,19 @@ const RequestAsset = () => {
                     />
                     <div>
                       <p className="font-bold">{asset.productName}</p>
-                      <p className="text-sm opacity-60">
-                        {asset.productType}
-                      </p>
+                      <p className="text-sm opacity-60">{asset.productType}</p>
                     </div>
                   </td>
 
                   <td>
-
-                     {asset.companyName} <br /> {asset.hrEmail &&  `(${asset.hrEmail})`}
-                  
-                    </td>
+                    {asset.companyName} <br />{" "}
+                    {asset.hrEmail && `(${asset.hrEmail})`}
+                  </td>
                   <td>{asset.productType}</td>
-                  <td>{asset.availableQuantity}</td>
+                  <td>
+                    {asset.availableQuantity}{" "}
+                   
+                  </td>
 
                   <td>
                     <button
@@ -227,8 +230,12 @@ const RequestAsset = () => {
 
           {selectedAsset && (
             <>
-              <p><b>Asset:</b> {selectedAsset.productName}</p>
-              <p><b>Available:</b> {selectedAsset.availableQuantity}</p>
+              <p>
+                <b>Asset:</b> {selectedAsset.productName}
+              </p>
+              <p>
+                <b>Available:</b> {selectedAsset.availableQuantity}
+              </p>
             </>
           )}
 

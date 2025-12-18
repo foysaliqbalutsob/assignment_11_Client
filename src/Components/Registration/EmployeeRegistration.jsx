@@ -215,7 +215,7 @@ const EmployeeRegistration= () => {
            {isLoading ? (
     <span className="loading loading-bars loading-sm"></span>
   ) : (
-    "Add Asset"
+    "Registration"
   )}
 </button>
 

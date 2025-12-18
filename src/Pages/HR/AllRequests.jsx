@@ -10,7 +10,7 @@ const AllRequests = () => {
   const axiosSecure = useAxios();
   const {user} = useAuth();
   console.log(user.email);
-  const {userData} = useUserRole();
+  const {userData ,refetch: refetchUserRole} = useUserRole();
   console.log(userData.packageLimit);
   const packageLimit = userData.packageLimit;
   const navigate = useNavigate();
@@ -47,7 +47,7 @@ if (packageLimit === 0) {
     title: "Package Limit Reached",
     text: "Please upgrade your package",
   });
-  navigate("/your-package");
+  navigate("/package");
   return ;
 }
 
@@ -72,7 +72,8 @@ if (packageLimit === 0) {
 
     
     Swal.fire("Approved", "Request approved successfully", "success");
-    refetch();
+   await refetch();
+await refetchUserRole();
   };
 
 

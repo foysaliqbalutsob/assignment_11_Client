@@ -121,7 +121,7 @@ const Review = () => {
       </div>
 
       {/* Swiper */}
-      <div className="max-w-7xl mx-auto px-4">
+      <div className=" mx-auto px-4 border">
         <Swiper
           // effect="coverflow"
           grabCursor={true}
@@ -150,7 +150,7 @@ const Review = () => {
           modules={[EffectCoverflow, Autoplay, Pagination]}
         >
           {data.map((item) => (
-            <SwiperSlide key={item.id} className="flex justify-center">
+            <SwiperSlide key={item.id} className="flex justify-center items-center">
               <ReviewCard data={item} />
             </SwiperSlide>
           ))}

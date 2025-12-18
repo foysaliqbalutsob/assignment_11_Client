@@ -55,8 +55,8 @@ const PaymentSuccess = () => {
         )}
       </div>
       <Link to="/your-package">
-        <button className="btn btn-primary mt-10 block mx-auto">
-          Go to DashBoard
+        <button className="btn btn-primary my-10 block mx-auto">
+          Go to your package pages
         </button>
       </Link>
     </div>

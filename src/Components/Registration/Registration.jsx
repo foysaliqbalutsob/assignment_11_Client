@@ -17,6 +17,8 @@ const Registration = () => {
     formState: { errors },
   } = useForm();
 
+
+
   const { registerUser, updateUserprofile } = useAuth();
   const axiosSecure = useAxios();
   const navigate = useNavigate();
@@ -48,6 +50,7 @@ const Registration = () => {
         email: data.email,
                   // HR photo
         companyLogo: companyLogoUrl,  // Company logo
+        companyName: data.companyName,
         dateOfBirth: data.dateOfBirth,
         role: "hr",
         packageLimit: 5,
@@ -76,7 +79,7 @@ const Registration = () => {
         </h1>
 
         <p className="mb-6 text-sm">
-          Welcome to <span className="font-semibold">AssetVerse</span>  manage
+          Welcome to <span className="font-semibold">AssetVerse</span>manage
           your company assets smartly.
         </p>
 

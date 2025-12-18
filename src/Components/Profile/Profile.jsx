@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import useAxios from "../../Hooks/useAxios";
 import Swal from "sweetalert2";
 import axios from "axios";
+import { Link } from "react-router";
 
 const Profile = () => {
   const { user, signOutUser, setUser, updateUserprofile } = useAuth();
@@ -93,7 +94,7 @@ const Profile = () => {
                 type="email"
                 value={user?.email}
                 readOnly
-                className="input input-bordered w-full bg-gray-100"
+                className="input border w-full "
               />
             </div>
 
@@ -112,8 +113,11 @@ const Profile = () => {
               <button type="submit" className="btn btn-primary" disabled={uploading}>
                 {uploading ? "Updating..." : "Update Profile"}
               </button>
-              <button type="button" className="btn btn-ghost" onClick={handleLogOut}>
+              <button type="button" className="btn btn-primary" onClick={handleLogOut}>
                 Logout
+              </button>
+              <button className="flex justify-center items-center btn btn-primary">
+                <Link to={'/forget-password'} >Forget password?</Link>
               </button>
             </div>
           </form>

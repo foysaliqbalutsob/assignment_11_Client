@@ -101,7 +101,7 @@ const RequestAsset = () => {
 
 
 
-            {/* ========== MOBILE CARD VIEW ========== */}
+            
       <div className="md:hidden space-y-4">
         {assets.length === 0 && (
           <p className="text-center py-6">No assets available</p>
@@ -151,7 +151,7 @@ const RequestAsset = () => {
         })}
       </div>
 
-      {/* ========== DESKTOP TABLE VIEW ========== */}
+      
       <div className="hidden md:block overflow-x-auto bg-base-100 shadow rounded-lg">
 
 

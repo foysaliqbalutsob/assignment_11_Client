@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   onAuthStateChanged,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
@@ -19,55 +20,46 @@ const AuthProvider = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
 
   const registerUser = (email, password) => {
-    setLoading(true)
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   const signInUser = (email, password) => {
-    setLoading(true)
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   const signInGoogle = () => {
-    setLoading(true)
+    setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
 
-
-  const signOutUser = () => { 
+  const signOutUser = () => {
     setLoading(true);
     return signOut(auth);
-  }; 
+  };
+
+  const updateUserprofile = (profile) => {
+    return updateProfile(auth.currentUser, profile);
+  };
+  const sendPasswordResetEmailFunc = (email) => {
+    return sendPasswordResetEmail(auth, email);
+  };
   
-  const updateUserprofile = (profile) =>{
-    return updateProfile(auth.currentUser, profile)
-
-  }
-
-
-
-
-
-
-
 
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, (currentUser) =>{
-        setUser(currentUser);
-        setLoading(false)
-        console.log(currentUser)
+    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+      console.log(currentUser);
+    });
 
-
-    } )
-
-    return ()=>{
-        unSubscribe();
-    }
-
-
+    return () => {
+      unSubscribe();
+    };
   }, []);
-  if(loading){
-    return <Loading></Loading> 
+  if (loading) {
+    return <Loading></Loading>;
   }
 
   const authInfo = {
@@ -78,8 +70,9 @@ const AuthProvider = ({ children }) => {
     registerUser,
     signInUser,
     signInGoogle,
-     signOutUser,
-     updateUserprofile,
+    signOutUser,
+    updateUserprofile,
+    sendPasswordResetEmailFunc,
   };
 
   return <AuthContext value={authInfo}>{children}</AuthContext>;

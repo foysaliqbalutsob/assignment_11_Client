@@ -25,7 +25,7 @@ const EmployeeList = () => {
       <h2 className="text-2xl font-bold mb-4">Employee Asset List</h2>
       <p className="mb-10">Total employees: {employeeAssets.length}   </p>
 
-      {/* ================= MOBILE CARD VIEW ================= */}
+      
       <div className="md:hidden space-y-4">
         {employeeAssets.length === 0 && (
           <p className="text-center py-6">No records found</p>

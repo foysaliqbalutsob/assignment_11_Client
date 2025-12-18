@@ -26,6 +26,7 @@ import EmployeeOnlyRoute from "./EmployeeOnlyRoute";
 import PaymentSuccess from "../Pages/Dashboard/PaymentSuccess";
 import YourPackage from "../Pages/HR/YourPackage";
 import PaymentCancel from "../Pages/Dashboard/PaymentCancel";
+import ForgetPassword from "../Components/Registration/ForgetPassword";
 
 export const router = createBrowserRouter([
   {
@@ -38,27 +39,45 @@ export const router = createBrowserRouter([
       },
       {
         path:'/profile',
-        element:<Profile></Profile>
+        element:<PrivateRoute>
+          <Profile></Profile>
+        </PrivateRoute>
       },
 
 
       {
         path:'my-asset',
-        element:<PrivateRoute>
-          <MyAsset></MyAsset>
-        </PrivateRoute>
+        element:
+        <PrivateRoute>
+          <EmployeeOnlyRoute>
+          
+            <MyAsset></MyAsset>
+       
+        </EmployeeOnlyRoute>
+         </PrivateRoute>
       },
        {
         path:'my-team',
-        element:<PrivateRoute>
-          <MyTeam></MyTeam>
+        element:
+          <PrivateRoute>
+            <EmployeeOnlyRoute>
+              <MyTeam></MyTeam>
+            </EmployeeOnlyRoute>
+          
         </PrivateRoute>
+        
       },
        {
         path:'request-asset',
-        element:<PrivateRoute>
-          <RequestAsset></RequestAsset>
+        element:
+          <PrivateRoute>
+            <EmployeeOnlyRoute>
+               <RequestAsset></RequestAsset>
+
+            </EmployeeOnlyRoute>
+         
         </PrivateRoute>
+        
       },
 
       // HR
@@ -85,7 +104,9 @@ export const router = createBrowserRouter([
        {
         path:'package',
         element:<HrRoute>
-        <Package></Package>
+        <PrivateRoute>
+          <Package></Package>
+        </PrivateRoute>
         </HrRoute>
       },{
         path:'/dashboard/payment-success',
@@ -126,6 +147,10 @@ export const router = createBrowserRouter([
       },{
         path:'/employee-registration',
         element:<EmployeeRegistration></EmployeeRegistration>
+      },
+      {
+        path:'/forget-password',
+        element:<ForgetPassword></ForgetPassword>
       }
 
 

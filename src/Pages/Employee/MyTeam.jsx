@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../../Hooks/useauth";
 import useAxios from "../../Hooks/useAxios";
 import axios from "axios";
-
+import { FaBirthdayCake } from "react-icons/fa";
 const MyTeam = () => {
   const { user } = useAuth();
   const axiosSecure = useAxios();
@@ -10,10 +10,7 @@ const MyTeam = () => {
   const [companies, setCompanies] = useState([]);
   const [selectedCompany, setSelectedCompany] = useState("");
   const [employees, setEmployees] = useState([]);
-  useEffect(()=>{
-    const res = axios('')
-
-  },[companies])
+ 
 
   // Load companies
   useEffect(() => {
@@ -77,33 +74,80 @@ const MyTeam = () => {
         </div>
       </div>
 
-      {/* Employee Cards */}
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 ">
-        {employees.map((emp) => (
-          <div
-            key={emp.email}
-            className="card bg-base-100 shadow-sm hover:shadow-lg transition-shadow border"
-          >
-            <div className="card-body items-center text-center">
-              <img
-                src={emp.photo || "/avatar.png"}
-                alt={emp.name}
-                className="w-16 h-16 rounded-full mb-3"
-              />
-              <h3 className="font-semibold text-lg">{emp.name}</h3>
-              <p className="text-sm opacity-70">{emp.email}</p>
-              <p className="text-xs uppercase tracking-wide opacity-60">
-                {emp.position}
-              </p>
-            {/* <p>{emp.dateOfBirth}</p> */}
-            <p className="text-sm opacity-70">
-  🎂 {new Date(emp.dateOfBirth).toLocaleDateString()}
-</p>
 
-            </div>
-          </div>
-        ))}
+      {/* CARD VIEW (Mobile & Tablet) */}
+<div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 lg:hidden">
+  {employees.map((emp) => (
+    <div
+      key={emp.email}
+      className="card bg-base-100 shadow-sm hover:shadow-lg transition-shadow border"
+    >
+      <div className="card-body items-center text-center">
+        <img
+          src={emp.photo || "/avatar.png"}
+          alt={emp.name}
+          className="w-16 h-16 rounded-full mb-3"
+        />
+
+        <h3 className="font-semibold text-lg">{emp.name}</h3>
+        <p className="text-sm opacity-70">{emp.email}</p>
+        <p className="text-xs uppercase tracking-wide opacity-60">
+          {emp.position}
+        </p>
+
+        {emp.dateOfBirth && (
+          <p className="text-sm opacity-70 flex items-center gap-2 mt-2">
+            <FaBirthdayCake />
+            {new Date(emp.dateOfBirth).toLocaleDateString()}
+          </p>
+        )}
       </div>
+    </div>
+  ))}
+</div>
+
+
+
+{/* TABLE VIEW (Large Devices Only) */}
+<div className="hidden lg:block overflow-x-auto bg-base-100 shadow rounded-lg">
+  <table className="table table-zebra">
+    <thead>
+      <tr>
+        <th>Photo</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Position</th>
+        <th>Birthday</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {employees.map((emp) => (
+        <tr key={emp.email}>
+          <td>
+            <img
+              src={emp.photo || "/avatar.png"}
+              className="w-10 h-10 rounded-full"
+              alt={emp.name}
+            />
+          </td>
+          <td className="font-medium">{emp.name}</td>
+          <td>{emp.email}</td>
+          <td className="uppercase text-sm">{emp.position}</td>
+          <td>
+            {emp.dateOfBirth
+              ? new Date(emp.dateOfBirth).toLocaleDateString()
+              : "-"}
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+
+      {/* Employee Cards */}
+
 
   
        {upcomingBirthdays.length > 0 && (
@@ -137,6 +181,3 @@ const MyTeam = () => {
 };
 
 export default MyTeam;
-
-
-

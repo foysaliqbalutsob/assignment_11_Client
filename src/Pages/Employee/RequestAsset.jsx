@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../Hooks/useAxios";
 import useAuth from "../../Hooks/useauth";
@@ -79,7 +79,9 @@ const RequestAsset = () => {
       await axiosSecure.post("/asset-requests", {
         assetId: selectedAsset._id,
         assetName: selectedAsset.productName,
+       assetImage: selectedAsset.productImage,
         assetType: selectedAsset.productType,
+
 
         productQuantity: productQuantity,
 

@@ -19,6 +19,7 @@ const MyAsset = () => {
       const res = await axiosSecure.get(
         `/asset-requests/user/${user.email}`
       );
+      console.log(assets)
       return res.data;
     },
   });
@@ -93,52 +94,71 @@ const MyAsset = () => {
 
 
           {/* MOBILE CARD VIEW  */}
-      <div className="md:hidden space-y-4">
-        {filteredAssets.length === 0 && (
-          <p className="text-center py-6">No assets found</p>
-        )}
-        {filteredAssets.map((a, i) => (
-          <div
-            key={a._id}
-            className="card bg-base-100 shadow-md p-4 border rounded-lg"
-          >
-            <p>
-              <span className="font-semibold">#</span> {i + 1}
-            </p>
-            <p>
-              <span className="font-semibold">Asset:</span> {a.assetName}
-            </p>
-            <p>
-              <span className="font-semibold">Type:</span> {a.assetType}
-            </p>
-            <p>
-              <span className="font-semibold">Company:</span> {a.companyName}
-            </p>
-            <p>
-              <span className="font-semibold">Requested:</span>{" "}
-              {new Date(a.requestDate).toLocaleDateString()}
-            </p>
-            <p>
-              <span className="font-semibold">Approved:</span>{" "}
-              {a.approvalDate
-                ? new Date(a.approvalDate).toLocaleDateString()
-                : "-"}
-            </p>
-            <p>
-              <span className="font-semibold">Status:</span>{" "}
-              <span className="badge badge-outline">{a.requestStatus}</span>
-            </p>
-            {a.requestStatus === "approved" && a.assetType === "Returnable" && (
-              <button
-                className="btn btn-sm btn-warning mt-2"
-                onClick={() => handleReturn(a)}
-              >
-                Return
-              </button>
-            )}
-          </div>
-        ))}
+     <div className="md:hidden space-y-4">
+  {filteredAssets.length === 0 && (
+    <p className="text-center py-6">No assets found</p>
+  )}
+
+  {filteredAssets.map((a, index) => (
+    <div
+      key={a._id}
+      className="card bg-base-100 shadow-md p-4 border rounded-lg"
+    >
+      {/* HEADER (Image + Name + Type) */}
+      <div className="flex items-center gap-3 mb-2">
+        <img
+          src={a.assetImage}
+          alt={a.assetName}
+          className="w-12 h-12 rounded object-cover"
+          onError={(e) =>
+            (e.target.src = "https://via.placeholder.com/48")
+          }
+        />
+        <div>
+          <p className="font-bold">{a.assetName}</p>
+          <p className="text-sm opacity-60">{a.assetType}</p>
+        </div>
       </div>
+
+      {/* BODY INFO */}
+      <p>
+        <span className="font-semibold">Company:</span>{" "}
+        {a.companyName}
+      </p>
+
+      <p>
+        <span className="font-semibold">Requested:</span>{" "}
+        {new Date(a.requestDate).toLocaleDateString()}
+      </p>
+
+      <p>
+        <span className="font-semibold">Approved:</span>{" "}
+        {a.approvalDate
+          ? new Date(a.approvalDate).toLocaleDateString()
+          : "-"}
+      </p>
+
+      <p>
+        <span className="font-semibold">Status:</span>{" "}
+        <span className="badge badge-outline">
+          {a.requestStatus}
+        </span>
+      </p>
+
+      {/* ACTION BUTTON */}
+      {a.requestStatus === "approved" &&
+        a.assetType === "Returnable" && (
+          <button
+            className="btn btn-sm btn-warning mt-3 w-full"
+            onClick={() => handleReturn(a)}
+          >
+            Return
+          </button>
+        )}
+    </div>
+  ))}
+</div>
+
 
    
       <div className="hidden md:block overflow-x-auto bg-base-100 shadow rounded-lg">
@@ -147,6 +167,7 @@ const MyAsset = () => {
         <table className="table table-zebra">
           <thead>
             <tr>
+              <th>Img</th>
               <th>Asset</th>
               <th>Type</th>
               <th>Company</th>
@@ -168,6 +189,11 @@ const MyAsset = () => {
 
             {filteredAssets.map((a) => (
               <tr key={a._id}>
+                <td>
+                  <div className="">
+                    <img src={a.assetImage} alt="" />
+                  </div>
+                </td>
                 <td className="flex items-center gap-3">
                   <div>
                     <p className="font-bold">{a.assetName}</p>

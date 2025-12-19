@@ -1,16 +1,55 @@
-# React + Vite
+# AssetVerse (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Project Purpose
+AssetVerse is a modern asset management web application frontend built with React.  
+It helps organizations manage company assets, track assignments, handle asset requests, and visualize HR analytics through interactive dashboards.
 
-Currently, two official plugins are available:
+This frontend communicates with a secure backend API to provide real-time data, role-based access, and responsive UI for Admin, HR, and Employees.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🌐 Live Website
+🔗 https://assetverse-frontend.vercel.app  
+*(Replace with your actual live URL)*
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🚀 Key Features
+- 🔐 Authentication & Authorization (Role-based: Admin / HR / Employee)
+- 📦 Asset Management (Add, Update, Delete assets)
+- 📝 Asset Request & Approval Workflow
+- 👥 Employee & Team Management
+- 📊 HR Analytics Dashboard (Pie & Bar Charts using Recharts)
+- 🔍 Search, Filter & Pagination (Server-side)
+- 🖼️ Asset Image Upload & Display
+- 📱 Fully Responsive Design (Mobile + Desktop)
+- 📄 PDF Export (My Assets Report)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🛠️ Technologies Used
+- **React**
+- **React Router**
+- **TanStack React Query**
+- **Axios**
+- **Tailwind CSS**
+- **DaisyUI**
+- **Recharts**
+- **SweetAlert2**
+- **jsPDF**
+
+---
+
+## 📦 NPM Packages Used
+```bash
+react
+react-dom
+react-router-dom
+@tanstack/react-query
+axios
+recharts
+sweetalert2
+jspdf
+react-icons
+tailwindcss
+daisyui

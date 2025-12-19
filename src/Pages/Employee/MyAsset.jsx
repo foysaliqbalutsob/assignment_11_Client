@@ -178,54 +178,91 @@ const MyAsset = () => {
             </tr>
           </thead>
 
-          <tbody>
-            {filteredAssets.length === 0 && (
-              <tr>
-                <td colSpan="7" className="text-center py-6">
-                  No assets found
-                </td>
-              </tr>
-            )}
+          
+<tbody>
+  {filteredAssets.length === 0 && (
+    <tr>
+      <td colSpan="8" className="text-center py-6">
+        No assets found
+      </td>
+    </tr>
+  )}
 
-            {filteredAssets.map((a) => (
-              <tr key={a._id}>
-                <td>
-                  <div className="">
-                    <img src={a.assetImage} alt="" />
-                  </div>
-                </td>
-                <td className="flex items-center gap-3">
-                  <div>
-                    <p className="font-bold">{a.assetName}</p>
-                  </div>
-                </td>
-                <td>{a.assetType}</td>
-                <td>{a.companyName}</td>
-                <td>{new Date(a.requestDate).toLocaleDateString()}</td>
-                <td>
-                  {a.approvalDate
-                    ? new Date(a.approvalDate).toLocaleDateString()
-                    : "-"}
-                </td>
-                <td>
-                  <span className="badge badge-outline">
-                    {a.requestStatus}
-                  </span>
-                </td>
-                <td>
-                  {a.requestStatus === "approved" &&
-                    a.assetType === "Returnable" && (
-                      <button
-                        className="btn btn-sm btn-warning"
-                        onClick={() => handleReturn(a)}
-                      >
-                        Return
-                      </button>
-                    )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
+  {filteredAssets.map((a) => (
+    <tr key={a._id} className="hover">
+      {/* IMAGE */}
+      <td>
+        <div className="flex justify-center">
+          <div className="avatar">
+            <div className="w-12 h-12 rounded-lg border bg-base-200">
+              <img
+                src={a.assetImage || "https://via.placeholder.com/80"}
+                alt={a.assetName}
+                className="object-cover"
+                onError={(e) =>
+                  (e.target.src = "https://via.placeholder.com/80")
+                }
+              />
+            </div>
+          </div>
+        </div>
+      </td>
+
+      {/* ASSET NAME */}
+      <td>
+        <p className="font-semibold">{a.assetName}</p>
+      </td>
+
+      {/* TYPE */}
+      <td>
+        <span className="badge badge-outline">{a.assetType}</span>
+      </td>
+
+      {/* COMPANY */}
+      <td>{a.companyName}</td>
+
+      {/* REQUEST DATE */}
+      <td>{new Date(a.requestDate).toLocaleDateString()}</td>
+
+      {/* APPROVAL DATE */}
+      <td>
+        {a.approvalDate
+          ? new Date(a.approvalDate).toLocaleDateString()
+          : "-"}
+      </td>
+
+      {/* STATUS */}
+      <td>
+        <span
+          className={`badge ${
+            a.requestStatus === "approved"
+              ? "badge-success"
+              : a.requestStatus === "returned"
+              ? "badge-info"
+              : "badge-warning"
+          }`}
+        >
+          {a.requestStatus}
+        </span>
+      </td>
+
+      {/* ACTION */}
+      <td>
+        {a.requestStatus === "approved" &&
+          a.assetType === "Returnable" && (
+            <button
+              className="btn btn-xs btn-warning"
+              onClick={() => handleReturn(a)}
+            >
+              Return
+            </button>
+          )}
+      </td>
+    </tr>
+  ))}
+</tbody>
+
+
         </table>
       </div>
     </div>

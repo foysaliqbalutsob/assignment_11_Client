@@ -8,6 +8,7 @@ import AboutSection from "./AboutSection";
 
 import Review from "./Reviews/Review";
 import Band from "../Swiper/Band";
+import HrRechart from "../../Pages/HR/HrRechart";
 
 const Home = () => {
   return (
@@ -33,6 +34,7 @@ const Home = () => {
         </h2>
       </div>
       <Band></Band>
+      <HrRechart></HrRechart>
     </div>
   );
 };

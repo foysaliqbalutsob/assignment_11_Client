@@ -84,7 +84,7 @@ const MyTeam = () => {
     >
       <div className="card-body items-center text-center">
         <img
-          src={emp.photo || "/avatar.png"}
+          src={emp.photo }
           alt={emp.name}
           className="w-16 h-16 rounded-full mb-3"
         />
@@ -126,14 +126,14 @@ const MyTeam = () => {
         <tr key={emp.email}>
           <td>
             <img
-              src={emp.photo || "/avatar.png"}
+              src={emp.photo }
               className="w-10 h-10 rounded-full"
               alt={emp.name}
             />
           </td>
           <td className="font-medium">{emp.name}</td>
           <td>{emp.email}</td>
-          <td className="uppercase text-sm">{emp.position}</td>
+          <td className="uppercase text-sm">-</td>
           <td>
             {emp.dateOfBirth
               ? new Date(emp.dateOfBirth).toLocaleDateString()

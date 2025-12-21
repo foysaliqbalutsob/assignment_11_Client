@@ -121,7 +121,7 @@ const Review = () => {
       </div>
 
       {/* Swiper */}
-      <div className=" mx-auto px-4 border">
+      <div className=" mx-auto px-4 ">
         <Swiper
           // effect="coverflow"
           grabCursor={true}

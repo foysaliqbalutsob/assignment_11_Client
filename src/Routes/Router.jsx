@@ -27,6 +27,7 @@ import PaymentSuccess from "../Pages/Dashboard/PaymentSuccess";
 import YourPackage from "../Pages/HR/YourPackage";
 import PaymentCancel from "../Pages/Dashboard/PaymentCancel";
 import ForgetPassword from "../Components/Registration/ForgetPassword";
+import HrRechart from "../Pages/HR/HrRechart";
 
 export const router = createBrowserRouter([
   {
@@ -45,85 +46,17 @@ export const router = createBrowserRouter([
       },
 
 
-      {
-        path:'my-asset',
-        element:
-        <PrivateRoute>
-          <EmployeeOnlyRoute>
-          
-            <MyAsset></MyAsset>
-       
-        </EmployeeOnlyRoute>
-         </PrivateRoute>
-      },
-       {
-        path:'my-team',
-        element:
-          <PrivateRoute>
-            <EmployeeOnlyRoute>
-              <MyTeam></MyTeam>
-            </EmployeeOnlyRoute>
-          
-        </PrivateRoute>
-        
-      },
-       {
-        path:'request-asset',
-        element:
-          <PrivateRoute>
-            <EmployeeOnlyRoute>
-               <RequestAsset></RequestAsset>
 
-            </EmployeeOnlyRoute>
-         
-        </PrivateRoute>
-        
-      },
 
       // HR
 
 
-      {
-        path:'add-asset',
-        element:<PrivateRoute>
-          <AddAsset></AddAsset>
-        </PrivateRoute>
-      },
-      {
-        path:'Asset-list',
-        element:<AssetList></AssetList>
-      },
-      {
-        path:'all-request',
-        element:<AllRequests></AllRequests>
-      },
-      {
-        path:'employee-list',
-        element:<EmployeeList></EmployeeList>
-      },
-       {
-        path:'package',
-        element:<HrRoute>
-        <PrivateRoute>
-          <Package></Package>
-        </PrivateRoute>
-        </HrRoute>
-      },{
-        path:'/dashboard/payment-success',
-        element: <PaymentSuccess></PaymentSuccess>
-      },
-      {
-        path:'your-package',
-        element:<HrRoute>
-        <YourPackage></YourPackage>
-        </HrRoute>
-        
-        
-      },
-      {
-        path:'/dashboard/payment-cancel',
-        element: <PaymentCancel></PaymentCancel>
-      },
+      
+      
+      
+      
+
+      
     
      
       
@@ -157,10 +90,106 @@ export const router = createBrowserRouter([
 
     ]
 
+  },
+
+
+  {
+    path: '/dashboard',
+    element:<DashboardLayout></DashboardLayout>,
+    children:[
+
+
+      {
+        path:'hr-rechart',
+        element:<HrRechart></HrRechart>
+      },
+      {
+        path:'add-asset',
+        element:<PrivateRoute>
+          <AddAsset></AddAsset>
+        </PrivateRoute>
+      },
+      {
+        path:'Asset-list',
+        element:<AssetList></AssetList>
+      },
+      {
+        path:'all-request',
+        element:<AllRequests></AllRequests>
+      },
+      {
+        path:'employee-list',
+        element:<EmployeeList></EmployeeList>
+      },
+       {
+        path:'package',
+        element:<HrRoute>
+        <PrivateRoute>
+          <Package></Package>
+        </PrivateRoute>
+        </HrRoute>
+      },
+      {
+        path:'your-package',
+        element:<HrRoute>
+        <YourPackage></YourPackage>
+        </HrRoute>
+        
+        
+      },
+      {
+        path:'payment-success',
+        element: <PaymentSuccess></PaymentSuccess>
+      },
+      {
+        path:'payment-cancel',
+        element: <PaymentCancel></PaymentCancel>
+      },
+
+
+
+      // employee
+
+
+            {
+        path:'my-asset',
+        element:
+        <PrivateRoute>
+          <EmployeeOnlyRoute>
+          
+            <MyAsset></MyAsset>
+       
+        </EmployeeOnlyRoute>
+         </PrivateRoute>
+      },
+       {
+        path:'my-team',
+        element:
+          <PrivateRoute>
+            <EmployeeOnlyRoute>
+              <MyTeam></MyTeam>
+            </EmployeeOnlyRoute>
+          
+        </PrivateRoute>
+        
+      },
+       {
+        path:'request-asset',
+        element:
+          <PrivateRoute>
+            <EmployeeOnlyRoute>
+               <RequestAsset></RequestAsset>
+
+            </EmployeeOnlyRoute>
+         
+        </PrivateRoute>
+        
+      },
+    ]
   }
 
 
-  ,     
+  
  
 
 
@@ -170,13 +199,6 @@ export const router = createBrowserRouter([
       
       
 
-      // {
-      //   path:'package',
-      //   element:<EmployeeOnlyRoute>
-      //     <Package></Package>
-      //   </EmployeeOnlyRoute>
-  
-      // },
     
 
 

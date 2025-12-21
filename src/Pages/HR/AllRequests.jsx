@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useauth";
 import useUserRole from "../../Hooks/useUserRole";
 import { Link, useNavigate } from "react-router";
+import { useState } from "react";
 
 const AllRequests = () => {
   const axiosSecure = useAxios();
@@ -14,6 +15,7 @@ const AllRequests = () => {
   console.log(userData.packageLimit);
   const packageLimit = userData.packageLimit;
   const navigate = useNavigate();
+  const [actionLoading, setActionLoading] = useState(null)
 
 
   const {
@@ -37,46 +39,91 @@ if (isLoading) return <Loading />;
 
 
 
-  const handleApprove = async (req) => {
-    console.log(req._id);
+//   const handleApprove = async (req) => {
+//     console.log(req._id);
 
 
-if (packageLimit === 0) {
-  Swal.fire({
-    icon: "warning",
-    title: "Package Limit Reached",
-    text: "Please upgrade your package",
-  });
-  navigate("/package");
-  return ;
-}
-
-
-
+// if (packageLimit === 0) {
+//   Swal.fire({
+//     icon: "warning",
+//     title: "Package Limit Reached",
+//     text: "Please upgrade your package",
+//   });
+//   navigate("/package");
+//   return ;
+// }
 
 
 
 
 
-    const confirm = await Swal.fire({
-      title: "Approve Request?",
-      text: "Asset quantity will be deducted",
+
+
+
+//     const confirm = await Swal.fire({
+//       title: "Approve Request?",
+//       text: "Asset quantity will be deducted",
+//       icon: "warning",
+//       showCancelButton: true,
+//       confirmButtonText: "Approve",
+//     });
+
+//     if (!confirm.isConfirmed) return;
+
+//     await axiosSecure.patch(`/asset-requests/${req._id}/approve`);
+
+    
+//     Swal.fire("Approved", "Request approved successfully", "success");
+//    await refetch();
+// await refetchUserRole();
+
+//   }
+
+
+const handleApprove = async (req) => {
+  if (packageLimit === 0) {
+    Swal.fire({
       icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Approve",
+      title: "Package Limit Reached",
+      text: "Please upgrade your package to approve requests",
     });
+    navigate("/package");
+    return;
+  }
 
-    if (!confirm.isConfirmed) return;
+  const confirm = await Swal.fire({
+    title: "Approve this request?",
+    text: `Asset "${req.assetName}" will be assigned to ${req.requesterName}`,
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonText: "Yes, Approve",
+  });
+
+  if (!confirm.isConfirmed) return;
+
+  try {
+    setActionLoading(req._id);
 
     await axiosSecure.patch(`/asset-requests/${req._id}/approve`);
 
-    
-    Swal.fire("Approved", "Request approved successfully", "success");
-   await refetch();
-await refetchUserRole();
-  };
+    Swal.fire({
+      icon: "success",
+      title: "Approved!",
+      text: `${req.assetName} approved for ${req.requesterName}`,
+    });
 
-
+    await refetch();
+    await refetchUserRole();
+  } catch (error) {
+    Swal.fire({
+      icon: "error",
+      title: "Approval Failed",
+      text: error?.response?.data?.message || "Something went wrong",
+    });
+  } finally {
+    setActionLoading(null);
+  }
+};
 
 
 

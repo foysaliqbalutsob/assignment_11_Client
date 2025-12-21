@@ -15,9 +15,6 @@
 //   const [search, setSearch] = useState("");
 //   const [uploading, setUploading] = useState(false);
 
-
-
-
 //   // img from  image bb
 
 //   const {
@@ -68,10 +65,9 @@
 //   //   }
 //   // };
 
-
 //   const onSubmit = async (data) => {
 //   try {
-    
+
 //     if (data.productImage && data.productImage[0]) {
 //       const formData = new FormData();
 //       formData.append("image", data.productImage[0]);
@@ -81,7 +77,7 @@
 //         headers: { "Content-Type": "multipart/form-data" },
 //       });
 
-//       data.productImage = photoRes.data.data.url; 
+//       data.productImage = photoRes.data.data.url;
 //       console.log(data.productImage)
 //     } else {
 //       data.productImage = selectedAsset.productImage; // পুরানো image
@@ -100,13 +96,6 @@
 //     Swal.fire("Error", "Failed to update asset", "error");
 //   }
 // };
-
-
-
-
-
-
-
 
 //   //  Delete
 //   const handleDelete = async (asset) => {
@@ -329,7 +318,7 @@
 //             <div className="modal-action">
 //               <button type="submit" className="btn btn-primary" disabled={uploading}>
 //                  {uploading ? "Updating..." : "Update "}
-               
+
 //               </button>
 //               <button
 //                 type="button"
@@ -348,7 +337,6 @@
 
 // export default AssetList;
 
-
 import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../Hooks/useAxios";
@@ -364,8 +352,7 @@ const AssetList = () => {
   const [selectedAsset, setSelectedAsset] = useState(null);
   const { register, handleSubmit, reset } = useForm();
   const [search, setSearch] = useState("");
-  const [uploading, setUploading] = useState(false); 
- 
+  const [uploading, setUploading] = useState(false);
 
   // Fetch assets
   const {
@@ -394,7 +381,7 @@ const AssetList = () => {
     setSelectedAsset(asset);
     reset({
       productName: asset.productName,
-      
+
       productQuantity: asset.productQuantity,
       availableQuantity: asset.availableQuantity,
       productType: asset.productType,
@@ -413,7 +400,9 @@ const AssetList = () => {
         const formData = new FormData();
         formData.append("image", data.productImage[0]);
 
-        const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_HOST_NAME}`;
+        const image_API_URL = `https://api.imgbb.com/1/upload?key=${
+          import.meta.env.VITE_HOST_NAME
+        }`;
         const photoRes = await axios.post(image_API_URL, formData, {
           headers: { "Content-Type": "multipart/form-data" },
         });
@@ -422,7 +411,6 @@ const AssetList = () => {
       } else {
         data.productImage = selectedAsset.productImage; // keep old image
       }
-      
 
       // Patch to backend
       const res = await axiosSecure.patch(`/assets/${selectedAsset._id}`, data);
@@ -463,7 +451,9 @@ const AssetList = () => {
   if (isLoading)
     return <p className="text-center py-8 font-semibold">Loading assets...</p>;
   if (isError)
-    return <p className="text-center py-8 text-red-500">Failed to load assets</p>;
+    return (
+      <p className="text-center py-8 text-red-500">Failed to load assets</p>
+    );
 
   return (
     <div className="p-4">
@@ -511,7 +501,6 @@ const AssetList = () => {
               <p className="text-xs text-gray-400">
                 Added: {new Date(asset.createdAt).toLocaleDateString()}
               </p>
-              
             </div>
 
             <div className="flex gap-2 mt-3">
@@ -541,7 +530,7 @@ const AssetList = () => {
               <th>Asset</th>
               <th>Company</th>
               <th>Quantity</th>
-              
+
               <th>Added</th>
               <th>Action</th>
             </tr>
@@ -567,8 +556,8 @@ const AssetList = () => {
                 </td>
                 <td>{asset.companyName}</td>
                 <td>{asset.productQuantity}</td>
-                
-                <td>{new Date(asset.createdAt).toLocaleDateString()}</td>
+
+                <td>{new Date(asset.dateAdded).toLocaleDateString()}</td>
                 <td>
                   <button
                     onClick={() => handleEdit(asset)}
@@ -661,7 +650,11 @@ const AssetList = () => {
             </div>
 
             <div className="modal-action">
-              <button type="submit" className="btn btn-primary" disabled={uploading}>
+              <button
+                type="submit"
+                className="btn btn-primary"
+                disabled={uploading}
+              >
                 {uploading ? "Updating..." : "Update"}
               </button>
               <button
@@ -680,4 +673,3 @@ const AssetList = () => {
 };
 
 export default AssetList;
-

@@ -1,238 +1,244 @@
 import React from "react";
-import { FaHome } from "react-icons/fa";
-import {
-  MdAddBusiness,
-  MdGroup,
-  MdInventory,
-  MdListAlt,
-  MdOutlineVideogameAsset,
-  MdRequestQuote,
-} from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router";
-
+import { FcPackage } from "react-icons/fc";
 import useUserRole from "../Hooks/useUserRole";
-import { AiOutlineTeam } from "react-icons/ai";
+
+import useAuth from "../Hooks/useauth";
+import { FaHistory } from "react-icons/fa";
+import { CiViewList } from "react-icons/ci";
+import { TbPointerQuestion } from "react-icons/tb";
+import { MdOutlineWebAsset } from "react-icons/md";
+import { IoIosAddCircle, IoMdAnalytics } from "react-icons/io";
+import { VscGitPullRequestGoToChanges } from "react-icons/vsc";
+import { GiDarkSquad } from "react-icons/gi";
 
 const DashboardLayout = () => {
   const { userData, roleLoading } = useUserRole();
   console.log(userData);
   console.log(userData?.role);
+  const { user } = useAuth();
 
   if (roleLoading) {
     return <p className="text-center py-8 font-bold">Loading...</p>;
   }
 
   return (
-    <div>
-      {/* drawer */}
-
-      <div className="drawer  lg:drawer-open">
-        <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content">
-          {/* Navbar */}
-          <nav className="navbar  w-full bg-base-300">
-            <label
-              htmlFor="my-drawer-4"
-              aria-label="open sidebar"
-              className="btn btn-square btn-ghost"
-            >
-              {/* Sidebar toggle icon */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                strokeWidth="2"
-                fill="none"
-                stroke="currentColor"
-                className="my-1.5 inline-block size-4"
-              >
-                <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
-                <path d="M9 4v16"></path>
-                <path d="M14 10l2 2l-2 2"></path>
-              </svg>
-            </label>
-            <div className="px-4">Dashboard </div>
-          </nav>
-
-          {/* Page content here */}
-          <Outlet c></Outlet>
-        </div>
-
-        <div className="drawer-side is-drawer-close:overflow-visible bg-secondary">
+    <div className="drawer lg:drawer-open">
+      <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
+      <div className="drawer-content">
+        {/* Navbar */}
+        <nav className="navbar w-full bg-base-300">
           <label
             htmlFor="my-drawer-4"
-            aria-label="close sidebar"
-            className="drawer-overlay"
-          ></label>
-          <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
-            <ul className="menu w-full grow">
-              {/* Home */}
-              <Link to={"/"}>
-                <button
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Homepage"
-                >
-                  <FaHome size={25} />
-                  <span className="is-drawer-close:hidden">Homepage</span>
-                </button>
-              </Link>
+            aria-label="open sidebar"
+            className="btn btn-square btn-ghost"
+          >
+            {/* Sidebar toggle icon */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              strokeLinejoin="round"
+              strokeLinecap="round"
+              strokeWidth="2"
+              fill="none"
+              stroke="currentColor"
+              className="my-1.5 inline-block size-4"
+            >
+              <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
+              <path d="M9 4v16"></path>
+              <path d="M14 10l2 2l-2 2"></path>
+            </svg>
+          </label>
+          <div className="px-4">Navbar Title</div>
+        </nav>
+        {/* Page content here */}
+        <Outlet></Outlet>
+      </div>
 
-              {/* Employee Menu */}
-              {userData?.role === "employee" && (
+      <div className="drawer-side is-drawer-close:overflow-visible">
+        <label
+          htmlFor="my-drawer-4"
+          aria-label="close sidebar"
+          className="drawer-overlay"
+        ></label>
+        <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
+          {/* Sidebar content here */}
+          <ul className="menu w-full grow">
+            {/* List item */}
+            <li>
+              <Link
+                to={"/"}
+                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                data-tip="Homepage"
+              >
+                {/* Home icon */}
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                  strokeWidth="2"
+                  fill="none"
+                  stroke="currentColor"
+                  className="my-1.5 inline-block size-4"
+                >
+                  <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
+                  <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                </svg>
+                <span className="is-drawer-close:hidden">Homepage</span>
+              </Link>
+            </li>
+
+            {user && userData?.role === "hr" && (
+              <>
+                <li>
+                  <Link
+                    to="/dashboard/add-asset"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Add Asset"
+                  >
+                    <IoIosAddCircle />
+
+                    <span className="is-drawer-close:hidden">Add Asset</span>
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to="/dashboard/asset-list"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Asset List"
+                  >
+                    <MdOutlineWebAsset />
+
+                    <span className="is-drawer-close:hidden">Asset List</span>
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to="/dashboard/all-request"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="All Requests"
+                  >
+                    <TbPointerQuestion />
+
+                    <span className="is-drawer-close:hidden">All Requests</span>
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to="/dashboard/employee-list"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Employee List"
+                  >
+                    <CiViewList />
+
+                    <span className="is-drawer-close:hidden">
+                      {" "}
+                      Employee List
+                    </span>
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to="/dashboard/package"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip=" Upgrade Package"
+                  >
+                    <FcPackage />
+
+                    <span className="is-drawer-close:hidden">
+                      {" "}
+                      Upgrade Package
+                    </span>
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to="/dashboard/your-package"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="your-package"
+                  >
+                    <FaHistory />
+                    <span className="is-drawer-close:hidden">your-package</span>
+                  </Link>
+                </li>
+
+                <li>
+                  <Link
+                    to="/dashboard/hr-rechart"
+                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                    data-tip="Asset Analytics"
+                  >
+                    <IoMdAnalytics />
+                    <span className="is-drawer-close:hidden">
+                      Asset Analytics
+                    </span>
+                  </Link>
+                </li>
+              </>
+            )}
+
+            {user && userData?.role === "employee" && (
+              <>
                 <>
-                
+                  
+
+
 
                    <li>
-                    <NavLink
+                    <Link
                       to="/dashboard/my-asset"
-                      data-tip="My Asset"
-                      className={({ isActive }) =>
-                        isActive
-                          ? "text-primary font-semibold underline"
-                          : "text-gray-600"
-                      }
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                      data-tip="My asset"
                     >
-                      <MdOutlineVideogameAsset size={25} />
-                      <span className="is-drawer-close:hidden">My asset</span>
-                    </NavLink>
+                      <MdOutlineWebAsset />
+                      <span className="is-drawer-close:hidden">
+                    My asset
+                      </span>
+                    </Link>
                   </li>
 
+                 
 
-
-
-                  <li>
-                    <NavLink
+                     <li>
+                    <Link
                       to="/dashboard/my-team"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                       data-tip="My Team"
-                      className={({ isActive }) =>
-                        isActive
-                          ? "text-primary font-semibold underline"
-                          : "text-gray-600"
-                      }
                     >
-                      <AiOutlineTeam size={25} />
-                      <span className="is-drawer-close:hidden">My Team</span>
-                    </NavLink>
+                      <GiDarkSquad />
+                      <span className="is-drawer-close:hidden">
+                      My Team
+                      </span>
+                    </Link>
                   </li>
 
+
+
+
+
+
                   <li>
-                    <NavLink
+                    <Link
                       to="/dashboard/request-asset"
+                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                       data-tip="Request Asset"
-                      className={({ isActive }) =>
-                        isActive
-                          ? "text-primary font-semibold underline"
-                          : "text-gray-600"
-                      }
                     >
-                      <MdRequestQuote size={25} />
+                      <VscGitPullRequestGoToChanges />
                       <span className="is-drawer-close:hidden">
                         Request Asset
                       </span>
-                    </NavLink>
+                    </Link>
                   </li>
                 </>
-              )}
-
-              {/* HR Menu */}
-              {userData?.role === "hr" && (
-                <>
-                  <li>
-                    <NavLink
-                      to="/dashboard/add-asset"
-                      data-tip="Add Asset"
-                      className={({ isActive }) =>
-                        isActive
-                          ? "text-primary font-semibold underline"
-                          : "text-gray-600"
-                      }
-                    >
-                      <MdAddBusiness size={25} />
-                      <span className="is-drawer-close:hidden">Add Asset</span>
-                    </NavLink>
-                  </li>
-
-                  <li>
-                    <NavLink
-                      to="/dashboard/asset-list"
-                      data-tip="Asset List"
-                      className={({ isActive }) =>
-                        isActive
-                          ? "text-primary font-semibold underline"
-                          : "text-gray-600"
-                      }
-                    >
-                      <MdInventory size={25} />
-                      <span className="is-drawer-close:hidden">Asset List</span>
-                    </NavLink>
-                  </li>
-
-                  <li>
-                    <NavLink
-                      to="/dashboard/all-request"
-                      data-tip="All Requests"
-                      className={({ isActive }) =>
-                        isActive
-                          ? "text-primary font-semibold underline"
-                          : "text-gray-600"
-                      }
-                    >
-                      <MdListAlt size={25} />
-                      <span className="is-drawer-close:hidden">
-                        All Requests
-                      </span>
-                    </NavLink>
-                  </li>
-
-                  <li>
-                    <NavLink
-                      to="/dashboard/employee-list"
-                      data-tip="Employee List"
-                      className={({ isActive }) =>
-                        isActive
-                          ? "text-primary font-semibold underline"
-                          : "text-gray-600"
-                      }
-                    >
-                      <MdGroup size={25} />
-                      <span className="is-drawer-close:hidden">
-                        Employee List
-                      </span>
-                    </NavLink>
-                  </li>
-                </>
-              )}
-
-              {/* Common Menu */}
-
-              {/* Settings */}
-              <li>
-                <button
-                  data-tip="Settings"
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    fill="none"
-                    stroke="currentColor"
-                    className="my-1.5 inline-block size-4"
-                  >
-                    <path d="M20 7h-9"></path>
-                    <path d="M14 17H5"></path>
-                    <circle cx="17" cy="17" r="3"></circle>
-                    <circle cx="7" cy="7" r="3"></circle>
-                  </svg>
-
-                  <span className="is-drawer-close:hidden">Settings</span>
-                </button>
-              </li>
-            </ul>
-          </div>
+              </>
+            )}
+          </ul>
         </div>
       </div>
     </div>

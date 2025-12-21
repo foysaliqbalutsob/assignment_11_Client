@@ -9,6 +9,8 @@ import AboutSection from "./AboutSection";
 import Review from "./Reviews/Review";
 import Band from "../Swiper/Band";
 import HrRechart from "../../Pages/HR/HrRechart";
+import HowItWork from "./HowItWorks";
+import CallInAction from "./CallInAction";
 
 const Home = () => {
   return (
@@ -25,7 +27,9 @@ const Home = () => {
         <Review></Review>
 
       </div>
+      <HowItWork></HowItWork>
       <Faq></Faq>
+      <CallInAction></CallInAction>
       <div className="bg-#F9FAFB" >
        
        
@@ -34,7 +38,7 @@ const Home = () => {
         </h2>
       </div>
       <Band></Band>
-      <HrRechart></HrRechart>
+      
     </div>
   );
 };

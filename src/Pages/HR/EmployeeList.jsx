@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../Hooks/useAxios";
 import useAuth from "../../Hooks/useauth";
@@ -10,6 +10,10 @@ const EmployeeList = () => {
   const { user } = useAuth();
   const axiosSecure = useAxios();
   const { userData, refetch: refetchUserRole } = useUserRole();
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
+const [assets, setAssets] = useState([]);
+const [loadingAssets, setLoadingAssets] = useState(false);
+
 
   // Fetch assigned assets
   const { data: employeeAssets = [], isLoading, refetch } = useQuery({
@@ -42,45 +46,130 @@ const EmployeeList = () => {
 
   const employees = Object.values(employeeMap);
 
+
+
+
+
+
+  const handleAssignAsset = async (employee) => {
+  setSelectedEmployee(employee);
+  setLoadingAssets(true);
+
+  try {
+    const res = await axiosSecure.get("/assetsEmail");
+    setAssets(res.data);
+    document.getElementById("assign_modal").showModal();
+  } catch (err) {
+    Swal.fire("Error", "Failed to load assets", "error");
+  } finally {
+    setLoadingAssets(false);
+  }
+};
+
+
+
+
+
+
+
+
+
+const handleConfirmAssign = async (asset) => {
+  try {
+    const assignData = {
+      assetId: asset._id,
+      assetName: asset.productName,
+      assetImage: asset.productImage,
+      assetType: asset.productType,
+
+      employeeEmail: selectedEmployee.email,
+      employeeName: selectedEmployee.name,
+      employeeDateOfBirth: selectedEmployee.dateOfBirth,
+
+      hrEmail: user.email,
+      companyName: asset.companyName,
+
+      productQuantity: asset.productQuantity,
+      availableQuantity: asset.availableQuantity,
+    };
+
+    await axiosSecure.post("/assigned-assets", assignData);
+
+    Swal.fire("Success", "Asset assigned successfully", "success");
+    document.getElementById("assign_modal").close();
+
+
+    
+
+
+
+
+
+
+
+
+
+    refetch();
+    refetchUserRole(); // employee list refresh
+  } catch (err) {
+    Swal.fire("Error", "Failed to assign asset", "error");
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // Remove employee handler
-  const handleRemove = async (employee) => {
-    console.log(employee)
+ const handleRemove = async (employee) => {
+  console.log(employee)
+  const confirm = await Swal.fire({
+    title: `Remove ${employee.name}?`,
+    text: "This employee will be removed from the team",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, Remove",
+    cancelButtonText: "Cancel",
+  });
 
-    const {} = useQuery({
+  if (!confirm.isConfirmed) return;
 
-    })
-     
+  try {
+    await axiosSecure.delete(
+      `/assigned-assets/remove/${employee.email}`
+    );
 
-
-
-    const confirm = await Swal.fire({
-      title: "Remove employee from team?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Remove",
-    });
-
-    if (!confirm.isConfirmed) return;
-
-    try {
-      await axiosSecure.delete(`/assigned-assets/remove/${email}`);
-      Swal.fire("Removed!", "Employee has been removed.", "success");
-      refetch(); 
-      refetchUserRole();
-    } catch (err) {
-      console.error(err);
-      Swal.fire("Error!", "Failed to remove employee.", "error");
-    }
-  };
+    Swal.fire("Removed!", "Employee removed successfully", "success");
+    refetch();
+    refetchUserRole();
+  } catch (err) {
+    Swal.fire("Error!", "Failed to remove employee", "error");
+  }
+};
 
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">My Employees</h2>
 
       {/* X/Y employees used */}
-      <p className="mb-6">
-        Employees used: {userData?.currentEmployees }
-      </p>
+      <p className="mb-6 text-sm opacity-70">
+  Employees used:{" "}
+  <span className="font-semibold">
+    {employees.length}
+  </span>
+  
+</p>
+
 
       {/* Mobile view */}
       <div className="md:hidden space-y-4">
@@ -106,8 +195,15 @@ const EmployeeList = () => {
             <p>Join Date: {emp.joinDate ? new Date(emp.joinDate).toLocaleDateString() : "-"}</p>
             <p>Assets Count: {emp.assetsCount}</p>
             <button
+  onClick={() => handleAssignAsset(emp)}
+  className="btn btn-primary btn-xs"
+>
+  Assign
+</button>
+
+            <button
               className="btn btn-error btn-xs mt-2"
-              onClick={() => handleRemove(emp.email)}
+              onClick={() => handleRemove(emp)}
             >
               Remove from Team
             </button>
@@ -124,6 +220,7 @@ const EmployeeList = () => {
               <th>Name</th>
               <th>Email</th>
               <th>Join Date</th>
+              <th>Assign</th>
               <th>Assets Count</th>
               <th>Action</th>
             </tr>
@@ -151,6 +248,15 @@ const EmployeeList = () => {
                 <td>{emp.name}</td>
                 <td>{emp.email}</td>
                 <td>{emp.joinDate ? new Date(emp.joinDate).toLocaleDateString() : "-"}</td>
+                <th>
+                 <button
+  onClick={() => handleAssignAsset(emp)}
+  className="btn btn-primary btn-xs"
+>
+  Assign
+</button>
+
+                </th>
                 <td>{emp.assetsCount}</td>
                 <td>
                   <button
@@ -165,6 +271,69 @@ const EmployeeList = () => {
           </tbody>
         </table>
       </div>
+
+
+<dialog id="assign_modal" className="modal modal-bottom sm:modal-middle">
+  <div className="modal-box max-w-3xl">
+    <h3 className="font-bold text-lg mb-4">
+      Assign Asset to {selectedEmployee?.name}
+    </h3>
+
+    {loadingAssets ? (
+      <Loading />
+    ) : assets.length === 0 ? (
+      <p>No assets available</p>
+    ) : (
+      <div className="space-y-3 max-h-96 overflow-y-auto">
+        {assets.map((asset) => (
+          <div
+            key={asset._id}
+            className="flex items-center gap-4 border p-3 rounded-lg"
+          >
+            <img
+              src={asset.productImage}
+              className="w-12 h-12 rounded"
+              alt=""
+            />
+
+            <div className="flex-1">
+              <p className="font-semibold">{asset.productName}</p>
+              <p className="text-sm opacity-60">
+                {asset.productType} | Available: {asset.availableQuantity}
+              </p>
+            </div>
+
+            <button
+              disabled={asset.availableQuantity <= 0}
+              onClick={() => handleConfirmAssign(asset)}
+              className="btn btn-success btn-xs"
+            >
+              Assign
+            </button>
+          </div>
+        ))}
+      </div>
+    )}
+
+    <div className="modal-action">
+      <form method="dialog">
+        <button className="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
   );
 };

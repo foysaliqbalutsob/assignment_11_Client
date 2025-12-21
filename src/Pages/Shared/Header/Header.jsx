@@ -15,13 +15,14 @@ const Header = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   const { userData } = useUserRole();
+  console.log(userData)
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  // for dark theme appy
+  // for dark theme apply
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
@@ -83,133 +84,23 @@ const Header = () => {
         </>
       )}
 
-      {user && userData?.role === "employee" && (
-        <>
-          <>
-            <li>
-              <NavLink
-                to="/my-asset"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-primary font-semibold underline"
-                    : "text-gray-600"
-                }
-              >
-                <span className="is-drawer-close:hidden">My asset</span>
-              </NavLink>
-            </li>
+      
 
-            <li>
-              <NavLink
-                to="/my-team"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-primary font-semibold underline"
-                    : "text-gray-600"
-                }
-              >
-                <span className="is-drawer-close:hidden">My Team</span>
-              </NavLink>
-            </li>
+      <li>
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) =>
+            isActive ? "text-primary font-semibold underline" : "text-gray-600"
+          }
+        >
+        
+        {
+          userData.role=== 'employee'? 'Employee Dropdown': 'Hr Manager Dropdown'
+        }
+        </NavLink>
+      </li>
 
-            <li>
-              <NavLink
-                to="/request-asset"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-primary font-semibold underline"
-                    : "text-gray-600"
-                }
-              >
-                <span className="is-drawer-close:hidden">Request Asset</span>
-              </NavLink>
-            </li>
-          </>
-        </>
-      )}
-
-      {user && userData?.role === "hr" && (
-        <>
-          <li>
-            <NavLink
-              to="/add-asset"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-primary font-semibold underline"
-                  : "text-gray-600"
-              }
-            >
-              <span className="is-drawer-close:hidden">Add Asset</span>
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/asset-list"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-primary font-semibold underline"
-                  : "text-gray-600"
-              }
-            >
-              <span className="is-drawer-close:hidden">Asset List</span>
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/all-request"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-primary font-semibold underline"
-                  : "text-gray-600"
-              }
-            >
-              <span className="is-drawer-close:hidden">All Requests</span>
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/employee-list"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-primary font-semibold underline"
-                  : "text-gray-600"
-              }
-            >
-              <span className="is-drawer-close:hidden">Employee List</span>
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/package"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-primary font-semibold underline"
-                  : "text-gray-600"
-              }
-            >
-              Upgrade Package
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/your-package"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-primary font-semibold underline"
-                  : "text-gray-600"
-              }
-            >
-              Your Package
-            </NavLink>
-          </li>
-        </>
-      )}
-
+    
       <li>
         <NavLink
           to="/profile"
@@ -220,6 +111,7 @@ const Header = () => {
           Profile
         </NavLink>
       </li>
+
     </>
   );
   return (
@@ -281,7 +173,7 @@ const Header = () => {
                 tabIndex={0}
                 className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
               >
-                <li className="btn btn-primary">Role: {userData?.role} </li>
+                <li className="ghost ">Role: {userData?.role} </li>
 
                 {/* dark mode */}
 

@@ -215,7 +215,7 @@ const MyAsset = () => {
 
       {/* TYPE */}
       <td>
-        <span className="badge badge-outline">{a.assetType}</span>
+        <span className="badge badge-outline py-5">{a.assetType}</span>
       </td>
 
       {/* COMPANY */}

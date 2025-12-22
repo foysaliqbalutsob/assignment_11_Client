@@ -62,7 +62,7 @@ const useAxios = () => {
   const navigate = useNavigate();
 
   const axiosSecure = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: "https://assignment-server-mu-nine.vercel.app",
   });
 
   // Request interceptor

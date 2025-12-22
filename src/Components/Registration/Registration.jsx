@@ -49,7 +49,7 @@ const Registration = () => {
         name: data.name,
         email: data.email,
                   // HR photo
-        companyLogo: companyLogoUrl,  // Company logo
+        companyLogo: companyLogoUrl,  
         companyName: data.companyName,
         dateOfBirth: data.dateOfBirth,
         role: "hr",
@@ -85,6 +85,9 @@ const Registration = () => {
 
         <form onSubmit={handleSubmit(handleRegistration)}>
           <fieldset className="fieldset space-y-4">
+
+
+            
 
             {/* Full Name */}
             <label className="label">HR Name</label>

@@ -28,6 +28,7 @@ import YourPackage from "../Pages/HR/YourPackage";
 import PaymentCancel from "../Pages/Dashboard/PaymentCancel";
 import ForgetPassword from "../Components/Registration/ForgetPassword";
 import HrRechart from "../Pages/HR/HrRechart";
+import DashboardHome from "../Layouts/DasgboardHome";
 
 export const router = createBrowserRouter([
   {
@@ -97,53 +98,100 @@ export const router = createBrowserRouter([
     path: '/dashboard',
     element:<DashboardLayout></DashboardLayout>,
     children:[
+        {
+      index: true,
+      element: <DashboardHome />,
+    },
 
 
       {
         path:'hr-rechart',
-        element:<HrRechart></HrRechart>
+        element:<PrivateRoute>
+          <HrRoute>
+          <HrRechart></HrRechart>
+          
+          </HrRoute>
+        </PrivateRoute>
       },
       {
         path:'add-asset',
         element:<PrivateRoute>
+          <HrRoute>
+
           <AddAsset></AddAsset>
+          </HrRoute>
         </PrivateRoute>
       },
       {
         path:'Asset-list',
-        element:<AssetList></AssetList>
+        element:
+        <PrivateRoute>
+          <HrRoute>
+
+          <AssetList></AssetList>
+          </HrRoute>
+        </PrivateRoute>
       },
       {
         path:'all-request',
-        element:<AllRequests></AllRequests>
+        element:<PrivateRoute>
+          <HrRoute>
+          <AllRequests></AllRequests>
+          
+          </HrRoute>
+        </PrivateRoute>
       },
       {
         path:'employee-list',
-        element:<EmployeeList></EmployeeList>
+        element:<PrivateRoute>
+          <HrRoute>
+          <EmployeeList></EmployeeList>
+          
+          </HrRoute>
+        </PrivateRoute>
       },
        {
         path:'package',
-        element:<HrRoute>
+        element:
         <PrivateRoute>
+          <HrRoute>
           <Package></Package>
+          
+          </HrRoute>
+          
         </PrivateRoute>
-        </HrRoute>
+        
       },
       {
         path:'your-package',
-        element:<HrRoute>
+        element:<PrivateRoute>
+
+          <HrRoute>
         <YourPackage></YourPackage>
         </HrRoute>
+        </PrivateRoute>
         
         
       },
       {
         path:'payment-success',
-        element: <PaymentSuccess></PaymentSuccess>
+        element: <PrivateRoute>
+          <HrRoute>
+          
+
+          <PaymentSuccess></PaymentSuccess>
+          </HrRoute>
+        </PrivateRoute>
       },
       {
         path:'payment-cancel',
-        element: <PaymentCancel></PaymentCancel>
+        element: <PrivateRoute>
+
+          <HrRoute>
+          <PaymentCancel></PaymentCancel>
+          
+          </HrRoute>
+        </PrivateRoute>
       },
 
 

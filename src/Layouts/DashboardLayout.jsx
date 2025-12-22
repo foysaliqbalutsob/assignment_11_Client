@@ -2,7 +2,6 @@ import React from "react";
 import { Link, NavLink, Outlet } from "react-router";
 import { FcPackage } from "react-icons/fc";
 import useUserRole from "../Hooks/useUserRole";
-
 import useAuth from "../Hooks/useauth";
 import { FaHistory } from "react-icons/fa";
 import { CiViewList } from "react-icons/ci";
@@ -14,13 +13,16 @@ import { GiDarkSquad } from "react-icons/gi";
 
 const DashboardLayout = () => {
   const { userData, roleLoading } = useUserRole();
-  console.log(userData);
-  console.log(userData?.role);
   const { user } = useAuth();
 
   if (roleLoading) {
     return <p className="text-center py-8 font-bold">Loading...</p>;
   }
+
+ const getNavLinkClass = ({ isActive }) =>
+  `flex items-center gap-2 p-2 rounded-md tooltip tooltip-right ${
+    isActive ? "text-blue-600 font-semibold underline" : "text-gray-600"
+  }`;
 
   return (
     <div className="drawer lg:drawer-open">
@@ -49,10 +51,11 @@ const DashboardLayout = () => {
               <path d="M14 10l2 2l-2 2"></path>
             </svg>
           </label>
-          <div className="px-4">Navbar Title</div>
+          <div className="px-4 font-bold">Dashboard</div>
         </nav>
-        {/* Page content here */}
-        <Outlet></Outlet>
+
+        {/* Page content */}
+        <Outlet />
       </div>
 
       <div className="drawer-side is-drawer-close:overflow-visible">
@@ -62,16 +65,10 @@ const DashboardLayout = () => {
           className="drawer-overlay"
         ></label>
         <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
-          {/* Sidebar content here */}
           <ul className="menu w-full grow">
-            {/* List item */}
-            <li>
-              <Link
-                to={"/"}
-                className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                data-tip="Homepage"
-              >
-                {/* Home icon */}
+            {/* Home */}
+            <li className="tooltip tooltip-right" data-tip="Homepage">
+              <NavLink to="/" className={getNavLinkClass}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -86,156 +83,88 @@ const DashboardLayout = () => {
                   <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
                 </svg>
                 <span className="is-drawer-close:hidden">Homepage</span>
-              </Link>
+              </NavLink>
             </li>
 
+            {/* HR Links */}
             {user && userData?.role === "hr" && (
               <>
                 <li>
-                  <Link
-                    to="/dashboard/add-asset"
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Add Asset"
-                  >
-                    <IoIosAddCircle />
-
+                  <NavLink to="/dashboard/add-asset" className={getNavLinkClass} data-tip="Add Asset">
+                    <IoIosAddCircle size={20} />
                     <span className="is-drawer-close:hidden">Add Asset</span>
-                  </Link>
+                  </NavLink>
                 </li>
 
                 <li>
-                  <Link
-                    to="/dashboard/asset-list"
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Asset List"
-                  >
-                    <MdOutlineWebAsset />
-
+                  <NavLink to="/dashboard/asset-list" className={getNavLinkClass} data-tip="Asset List">
+                    <MdOutlineWebAsset size={20}/>
                     <span className="is-drawer-close:hidden">Asset List</span>
-                  </Link>
+                  </NavLink>
                 </li>
 
                 <li>
-                  <Link
-                    to="/dashboard/all-request"
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="All Requests"
-                  >
-                    <TbPointerQuestion />
-
-                    <span className="is-drawer-close:hidden">All Requests</span>
-                  </Link>
+                  <NavLink to="/dashboard/all-request" className={getNavLinkClass} data-tip="All Requests">
+                    <TbPointerQuestion size={20} />
+                    <span className="is-drawer-close:hidden  ">All Requests</span>
+                  </NavLink>
                 </li>
 
                 <li>
-                  <Link
-                    to="/dashboard/employee-list"
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Employee List"
-                  >
-                    <CiViewList />
-
-                    <span className="is-drawer-close:hidden">
-                      {" "}
-                      Employee List
-                    </span>
-                  </Link>
+                  <NavLink to="/dashboard/employee-list" className={getNavLinkClass} data-tip="Employee List">
+                    <CiViewList size={20} />
+                    <span className="is-drawer-close:hidden">Employee List</span>
+                  </NavLink>
                 </li>
 
                 <li>
-                  <Link
-                    to="/dashboard/package"
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip=" Upgrade Package"
-                  >
-                    <FcPackage />
-
-                    <span className="is-drawer-close:hidden">
-                      {" "}
-                      Upgrade Package
-                    </span>
-                  </Link>
+                  <NavLink to="/dashboard/package" className={getNavLinkClass} data-tip="Upgrade Package">
+                    <FcPackage size={20} />
+                    <span className="is-drawer-close:hidden">Upgrade Package</span>
+                  </NavLink>
                 </li>
 
                 <li>
-                  <Link
-                    to="/dashboard/your-package"
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="your-package"
-                  >
-                    <FaHistory />
-                    <span className="is-drawer-close:hidden">your-package</span>
-                  </Link>
+                  <NavLink to="/dashboard/your-package" className={getNavLinkClass} data-tip="Your Package">
+                    <FaHistory size={20} />
+                    <span className="is-drawer-close:hidden">Your Package</span>
+                  </NavLink>
                 </li>
 
                 <li>
-                  <Link
-                    to="/dashboard/hr-rechart"
-                    className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                    data-tip="Asset Analytics"
-                  >
-                    <IoMdAnalytics />
-                    <span className="is-drawer-close:hidden">
-                      Asset Analytics
-                    </span>
-                  </Link>
+                  <NavLink to="/dashboard/hr-rechart" className={getNavLinkClass} data-tip="Asset Analytics">
+                    <IoMdAnalytics size={20} />
+                    <span className="is-drawer-close:hidden">Asset Analytics</span>
+                  </NavLink>
                 </li>
               </>
             )}
 
+            {/* Employee Links */}
             {user && userData?.role === "employee" && (
               <>
-                <>
-                  
+                <li>
+                  <NavLink to="/dashboard/my-asset" className={getNavLinkClass} data-tip="My Asset">
+                    <MdOutlineWebAsset size={20} />
+                    <span className="is-drawer-close:hidden">My Asset</span>
+                  </NavLink>
+                </li>
 
+               
 
+                <li>
+                  <NavLink to="/dashboard/request-asset" className={getNavLinkClass} data-tip="Request Asset">
+                    <VscGitPullRequestGoToChanges size={20} />
+                    <span className="is-drawer-close:hidden">Request Asset</span>
+                  </NavLink>
+                </li>
 
-                   <li>
-                    <Link
-                      to="/dashboard/my-asset"
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                      data-tip="My asset"
-                    >
-                      <MdOutlineWebAsset />
-                      <span className="is-drawer-close:hidden">
-                    My asset
-                      </span>
-                    </Link>
-                  </li>
-
-                 
-
-                     <li>
-                    <Link
-                      to="/dashboard/my-team"
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                      data-tip="My Team"
-                    >
-                      <GiDarkSquad />
-                      <span className="is-drawer-close:hidden">
-                      My Team
-                      </span>
-                    </Link>
-                  </li>
-
-
-
-
-
-
-                  <li>
-                    <Link
-                      to="/dashboard/request-asset"
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                      data-tip="Request Asset"
-                    >
-                      <VscGitPullRequestGoToChanges />
-                      <span className="is-drawer-close:hidden">
-                        Request Asset
-                      </span>
-                    </Link>
-                  </li>
-                </>
+                 <li>
+                  <NavLink to="/dashboard/my-team" className={getNavLinkClass} data-tip="My Team">
+                    <GiDarkSquad size={20} />
+                    <span className="is-drawer-close:hidden">My Team</span>
+                  </NavLink>
+                </li>
               </>
             )}
           </ul>

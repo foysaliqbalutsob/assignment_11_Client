@@ -86,7 +86,9 @@ const Header = () => {
 
       
 
-      <li>
+     {user && userData &&
+     
+     <li>
         <NavLink
           to="/dashboard"
           className={({ isActive }) =>
@@ -94,14 +96,16 @@ const Header = () => {
           }
         >
         
-        {
-          userData.role=== 'employee'? 'Employee Dropdown': 'Hr Manager Dropdown'
-        }
+        {userData?.role === "employee"
+      ? "Employee Dropdown"
+      : userData?.role === "hr"
+      ? "HR Manager Dropdown"
+      : "Dashboard"}
         </NavLink>
-      </li>
+      </li>}
 
-    
-      <li>
+    {
+      user?   <li>
         <NavLink
           to="/profile"
           className={({ isActive }) =>
@@ -110,9 +114,18 @@ const Header = () => {
         >
           Profile
         </NavLink>
-      </li>
+      </li> : ''
+
+    }
+    
+      
 
     </>
+
+    
+
+
+
   );
   return (
     <div>

@@ -80,7 +80,7 @@ const Registration = () => {
 
         <p className="mb-6 text-sm">
           Welcome to <span className="font-semibold">AssetVerse</span>manage
-          your company assets smartly.
+          your company assets   smartly.
         </p>
 
         <form onSubmit={handleSubmit(handleRegistration)}>
@@ -89,7 +89,6 @@ const Registration = () => {
 
             
 
-            {/* Full Name */}
             <label className="label">HR Name</label>
             <input
               type="text"

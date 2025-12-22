@@ -79,7 +79,7 @@ const EmployeeRegistration= () => {
       <div className="w-full max-w-md">
         <h1 className="text-5xl font-bold text-primary mb-4"> Employee Registration</h1>
         <p className="mb-6">
-          Welcome to <span className="font-semibold">AssetVerse</span> - your
+          Welcome to <span className="font-semibold">AssetVerse</span>- your
           smart platform for managing company assets efficiently.
         </p>
 

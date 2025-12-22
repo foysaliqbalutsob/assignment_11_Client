@@ -37,14 +37,9 @@ const MyTeam = () => {
   }, [selectedCompany]);
 
   // 🔹 REMOVE employee from state
-  const handleRemoveEmployee = (email) => {
-    const updatedEmployees = employees.filter(
-      (emp) => emp.email !== email
-    );
-    setEmployees(updatedEmployees);
-  };
+ 
 
-  // 🔹 Birthday logic
+ 
   const currentMonth = new Date().getMonth();
   const upcomingBirthdays = employees.filter(
     (emp) =>
@@ -81,7 +76,7 @@ const MyTeam = () => {
         </div>
       </div>
 
-      {/* ================= CARD VIEW ================= */}
+     
       <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 lg:hidden">
         {employees.map((emp) => (
           <div
@@ -156,11 +151,11 @@ const MyTeam = () => {
         </table>
       </div>
 
-      {/* ================= UPCOMING BIRTHDAYS ================= */}
+      
       {upcomingBirthdays.length > 0 && (
         <div className="mt-12 border-t border-base-300 pt-6">
           <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-            🎂 Upcoming Birthdays This Month
+             Upcoming Birthdays This Month
           </h3>
 
           <ul className="space-y-3">

@@ -29,11 +29,13 @@ import PaymentCancel from "../Pages/Dashboard/PaymentCancel";
 import ForgetPassword from "../Components/Registration/ForgetPassword";
 import HrRechart from "../Pages/HR/HrRechart";
 import DashboardHome from "../Layouts/DasgboardHome";
+import ErrorElement from "./ErrorElement";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout></RootLayout>,
+     errorElement: <ErrorElement />,
     children: [
       {
         path: "/",
@@ -97,6 +99,10 @@ export const router = createBrowserRouter([
   {
     path: '/dashboard',
     element:<DashboardLayout></DashboardLayout>,
+    errorElement:<ErrorElement>
+
+    </ErrorElement>,
+    
     children:[
         {
       index: true,

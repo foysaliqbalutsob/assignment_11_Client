@@ -120,7 +120,6 @@ const MyAsset = () => {
         </div>
       </div>
 
-      {/* BODY INFO */}
       <p>
         <span className="font-semibold">Company:</span>{" "}
         {a.companyName}
@@ -221,10 +220,9 @@ const MyAsset = () => {
       {/* COMPANY */}
       <td>{a.companyName}</td>
 
-      {/* REQUEST DATE */}
+     
       <td>{new Date(a.requestDate).toLocaleDateString()}</td>
 
-      {/* APPROVAL DATE */}
       <td>
         {a.approvalDate
           ? new Date(a.approvalDate).toLocaleDateString()

@@ -11,7 +11,7 @@ const MyTeam = () => {
   const [selectedCompany, setSelectedCompany] = useState("");
   const [employees, setEmployees] = useState([]);
 
-  // 🔹 Load companies
+ 
   useEffect(() => {
     if (!user?.email) return;
 
@@ -36,7 +36,7 @@ const MyTeam = () => {
       .catch(console.log);
   }, [selectedCompany]);
 
-  // 🔹 REMOVE employee from state
+  
  
 
  

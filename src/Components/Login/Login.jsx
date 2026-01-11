@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import useAuth from "../../Hooks/useauth";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import SocialLogIn from "../SocialLogIn/SocialLogIn";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -15,24 +16,76 @@ const Login = () => {
 
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const { signInUser } = useAuth();
 
-  const handleLogin = (data) => {
-    signInUser(data.email, data.password)
-      .then((result) => {
-        console.log(result.user);
-        setIsLoading(true);
-
-        // Redirect to previous page
-        navigate(from, { replace: true });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const handleCredentialFill = () => {
+    setValue("email", "foysaliqbalutsob2202113@gmail.com"); 
+    setValue("password", "2202113Aa@"); 
+    
+    Swal.fire({
+      title: "Credentials Filled!",
+      text: "Please click the Login button to proceed.",
+      icon: "success",
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "Okay"
+    });
   };
+
+  // const handleLogin = (data) => {
+  //    setIsLoading(true);
+  //   signInUser(data.email, data.password)
+  //     .then((result) => {
+  //       console.log(result.user);
+  //       setIsLoading(true);
+
+  //       // Redirect to previous page
+  //       navigate(from, { replace: true });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       setIsLoading(false);
+  //     });
+  // };
+
+
+const handleLogin = async (data) => {
+  setIsLoading(true);
+
+  try {
+    const result = await signInUser(data.email, data.password);
+    console.log(result.user);
+
+    // ✅ ONLY success হলে redirect
+    navigate(from, { replace: true });
+
+  } catch (error) {
+  console.log(error);
+
+  Swal.fire({
+    icon: "error",
+    title: "Login Failed",
+    text: "Invalid email or password",
+    confirmButtonText: "Try Again",
+  }).then(() => {
+    navigate("/login"); 
+  });
+}
+
+   
+   finally {
+    setIsLoading(false); 
+  }
+};
+
+
+
+
+
+
 
   return (
     <div className="flex justify-center items-center mt-10">
@@ -90,6 +143,13 @@ const Login = () => {
               ) : (
                 "Login"
               )}
+            </button>
+           <button 
+              type="button" 
+              onClick={handleCredentialFill} 
+              className="btn btn-primary w-full mt-4"
+            >
+              User Credential Fill-up
             </button>
 
             <Link className="underline text-xs text-blue-400" to={"/registration"}>

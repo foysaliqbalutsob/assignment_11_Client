@@ -1,0 +1,13 @@
+/* index.css বা App.css ফাইলে এটি কপি করুন */
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* AOS এর কারণে যাতে ডানে কোনো জায়গা না বাড়ে */
+[data-aos] {
+  overflow: hidden !important;
+}

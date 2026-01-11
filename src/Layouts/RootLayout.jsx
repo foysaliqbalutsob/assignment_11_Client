@@ -6,10 +6,12 @@ import Header from "../Pages/Shared/Header/Header";
 
 const RootLayout = () => {
   return (
-    <div className="max-w-7xl mx-auto " >
+    <div >
 
       <Header></Header>
-      <Outlet></Outlet>
+     <div className="max-w-7xl mx-auto">
+       <Outlet></Outlet>
+     </div>
       <Footer></Footer>
 
       

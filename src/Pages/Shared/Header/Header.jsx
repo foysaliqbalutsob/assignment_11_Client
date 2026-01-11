@@ -128,8 +128,8 @@ const Header = () => {
 
   );
   return (
-    <div>
-      <div className="navbar bg-base-100 shadow-sm">
+    <div className="sticky top-0 z-50 w-full">
+      <div className="navbar bg-base-100 shadow-sm  border-b border-base-300">
         <div className="navbar-start">
           <div className="dropdown ">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

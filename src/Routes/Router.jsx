@@ -10,7 +10,6 @@ import PrivateRoute from "./PrivateRoute";
 
 import DashboardLayout from "../Layouts/DashboardLayout";
 
-
 import MyAsset from "../Pages/Employee/MyAsset";
 import MyTeam from "../Pages/Employee/MyTeam";
 import RequestAsset from "../Pages/Employee/RequestAsset";
@@ -30,242 +29,194 @@ import ForgetPassword from "../Components/Registration/ForgetPassword";
 import HrRechart from "../Pages/HR/HrRechart";
 import DashboardHome from "../Layouts/DasgboardHome";
 import ErrorElement from "./ErrorElement";
+import Article from "../Components/Article/Article";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout></RootLayout>,
-     errorElement: <ErrorElement />,
+    errorElement: <ErrorElement />,
     children: [
       {
         path: "/",
         element: <Home></Home>,
       },
       {
-        path:'/profile',
-        element:<PrivateRoute>
-          <Profile></Profile>
-        </PrivateRoute>
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
       },
 
+      {
+        path: "/blog",
 
-
+        element: <Article></Article>,
+      },
 
       // HR
-
-
-      
-      
-      
-      
-
-      
-    
-     
-      
-      
-
     ],
   },
 
-
   {
-    path:'/',
-    element:<AuthLayout></AuthLayout>,
+    path: "/",
+    element: <AuthLayout></AuthLayout>,
     children: [
       {
-        path: '/login',
-        element:<Login></Login>
+        path: "/login",
+        element: <Login></Login>,
       },
       {
-        path:'/registration',
-        element:<Registration></Registration>
-      },{
-        path:'/employee-registration',
-        element:<EmployeeRegistration></EmployeeRegistration>
+        path: "/registration",
+        element: <Registration></Registration>,
       },
       {
-        path:'/forget-password',
-        element:<ForgetPassword></ForgetPassword>
-      }
-
-
-
-    ]
-
+        path: "/employee-registration",
+        element: <EmployeeRegistration></EmployeeRegistration>,
+      },
+      {
+        path: "/forget-password",
+        element: <ForgetPassword></ForgetPassword>,
+      },
+    ],
   },
 
-
   {
-    path: '/dashboard',
-    element:<DashboardLayout></DashboardLayout>,
-    errorElement:<ErrorElement>
+    path: "/dashboard",
+    element: <DashboardLayout></DashboardLayout>,
+    errorElement: <ErrorElement></ErrorElement>,
 
-    </ErrorElement>,
-    
-    children:[
-        {
-      index: true,
-      element: <DashboardHome />,
-    },
-
+    children: [
+      {
+        index: true,
+        element: <DashboardHome />,
+      },
 
       {
-        path:'hr-rechart',
-        element:<PrivateRoute>
-          <HrRoute>
-          <HrRechart></HrRechart>
-          
-          </HrRoute>
-        </PrivateRoute>
+        path: "hr-rechart",
+        element: (
+          <PrivateRoute>
+            <HrRoute>
+              <HrRechart></HrRechart>
+            </HrRoute>
+          </PrivateRoute>
+        ),
       },
       {
-        path:'add-asset',
-        element:<PrivateRoute>
-          <HrRoute>
-
-          <AddAsset></AddAsset>
-          </HrRoute>
-        </PrivateRoute>
+        path: "add-asset",
+        element: (
+          <PrivateRoute>
+            <HrRoute>
+              <AddAsset></AddAsset>
+            </HrRoute>
+          </PrivateRoute>
+        ),
       },
       {
-        path:'Asset-list',
-        element:
-        <PrivateRoute>
-          <HrRoute>
-
-          <AssetList></AssetList>
-          </HrRoute>
-        </PrivateRoute>
+        path: "Asset-list",
+        element: (
+          <PrivateRoute>
+            <HrRoute>
+              <AssetList></AssetList>
+            </HrRoute>
+          </PrivateRoute>
+        ),
       },
       {
-        path:'all-request',
-        element:<PrivateRoute>
-          <HrRoute>
-          <AllRequests></AllRequests>
-          
-          </HrRoute>
-        </PrivateRoute>
+        path: "all-request",
+        element: (
+          <PrivateRoute>
+            <HrRoute>
+              <AllRequests></AllRequests>
+            </HrRoute>
+          </PrivateRoute>
+        ),
       },
       {
-        path:'employee-list',
-        element:<PrivateRoute>
-          <HrRoute>
-          <EmployeeList></EmployeeList>
-          
-          </HrRoute>
-        </PrivateRoute>
-      },
-       {
-        path:'package',
-        element:
-        <PrivateRoute>
-          <HrRoute>
-          <Package></Package>
-          
-          </HrRoute>
-          
-        </PrivateRoute>
-        
+        path: "employee-list",
+        element: (
+          <PrivateRoute>
+            <HrRoute>
+              <EmployeeList></EmployeeList>
+            </HrRoute>
+          </PrivateRoute>
+        ),
       },
       {
-        path:'your-package',
-        element:<PrivateRoute>
-
-          <HrRoute>
-        <YourPackage></YourPackage>
-        </HrRoute>
-        </PrivateRoute>
-        
-        
+        path: "package",
+        element: (
+          <PrivateRoute>
+            <HrRoute>
+              <Package></Package>
+            </HrRoute>
+          </PrivateRoute>
+        ),
       },
       {
-        path:'payment-success',
-        element: <PrivateRoute>
-          <HrRoute>
-          
-
-          <PaymentSuccess></PaymentSuccess>
-          </HrRoute>
-        </PrivateRoute>
+        path: "your-package",
+        element: (
+          <PrivateRoute>
+            <HrRoute>
+              <YourPackage></YourPackage>
+            </HrRoute>
+          </PrivateRoute>
+        ),
       },
       {
-        path:'payment-cancel',
-        element: <PrivateRoute>
-
-          <HrRoute>
-          <PaymentCancel></PaymentCancel>
-          
-          </HrRoute>
-        </PrivateRoute>
+        path: "payment-success",
+        element: (
+          <PrivateRoute>
+            <HrRoute>
+              <PaymentSuccess></PaymentSuccess>
+            </HrRoute>
+          </PrivateRoute>
+        ),
       },
-
-
+      {
+        path: "payment-cancel",
+        element: (
+          <PrivateRoute>
+            <HrRoute>
+              <PaymentCancel></PaymentCancel>
+            </HrRoute>
+          </PrivateRoute>
+        ),
+      },
 
       // employee
 
-
-            {
-        path:'my-asset',
-        element:
-        <PrivateRoute>
-          <EmployeeOnlyRoute>
-          
-            <MyAsset></MyAsset>
-       
-        </EmployeeOnlyRoute>
-         </PrivateRoute>
+      {
+        path: "my-asset",
+        element: (
+          <PrivateRoute>
+            <EmployeeOnlyRoute>
+              <MyAsset></MyAsset>
+            </EmployeeOnlyRoute>
+          </PrivateRoute>
+        ),
       },
-       {
-        path:'my-team',
-        element:
+      {
+        path: "my-team",
+        element: (
           <PrivateRoute>
             <EmployeeOnlyRoute>
               <MyTeam></MyTeam>
             </EmployeeOnlyRoute>
-          
-        </PrivateRoute>
-        
+          </PrivateRoute>
+        ),
       },
-       {
-        path:'request-asset',
-        element:
+      {
+        path: "request-asset",
+        element: (
           <PrivateRoute>
             <EmployeeOnlyRoute>
-               <RequestAsset></RequestAsset>
-
+              <RequestAsset></RequestAsset>
             </EmployeeOnlyRoute>
-         
-        </PrivateRoute>
-        
+          </PrivateRoute>
+        ),
       },
-    ]
-  }
-
-
-  
- 
-
-
-    
-
-
-      
-      
-
-    
-
-
-
-
-
-
-  
-     
-
-
-    
-  
-
-
+    ],
+  },
 ]);

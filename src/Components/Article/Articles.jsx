@@ -51,7 +51,7 @@ const Articles = () => {
               <p className="text-slate-300 text-lg mb-8 leading-relaxed">
                 Discover how AI and IoT are reshaping how global organizations manage high-value equipment in 2026.
               </p>
-              <Link to={'/'} className="bg-[#136dec] hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-xl transition-all flex items-center gap-3 w-fit">
+              <Link to={'/blog'} className="bg-[#136dec] hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-xl transition-all flex items-center gap-3 w-fit">
                 Read Full Article
                 <span className="material-symbols-outlined">
                   <FaArrowRight />

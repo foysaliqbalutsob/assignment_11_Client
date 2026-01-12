@@ -59,6 +59,7 @@ import Review from "./Reviews/Review";
 import Band from "../Swiper/Band";
 import HowItWork from "./HowItWorks";
 import CallInAction from "./CallInAction";
+import Articles from "../Article/Articles";
 
 const Home = () => {
   // স্ক্রল অ্যানিমেশন চালু করার জন্য useEffect
@@ -102,6 +103,14 @@ useEffect(() => {
       <div data-aos="fade-up">
         <Faq />
       </div>
+
+      
+      <div data-aos="fade-up">
+        <Articles></Articles>
+      </div>
+      
+
+
 
       <div data-aos="zoom-out">
         <CallInAction />
